@@ -8,6 +8,22 @@ public abstract class Enemy{
     block=0;
     weak=0;
     vulnerable=0;
+    dead=false;
     this.attackPattern=attackPattern;
+  }
+  public abstract void playTurn();
+  public void die(){
+    dead=true;
+  }
+  public void takeDamage(int dmg){
+    HP-=dmg;
+    if (HP<0)HP=0;
+  }
+  public void gainBlock(int blk){
+    block+=blk;
+  }
+  public void recieveDebuff(int vuln,int weak){
+    vulnerable+=vuln;
+    this.weak+=weak;
   }
 }
