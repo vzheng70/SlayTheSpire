@@ -1,5 +1,6 @@
 public class Player{
   private int HP,maxHP,block,weak,vulnerable,strength;
+  PImage pic;
   public Player(int HP){
     this.HP=HP;
     maxHP=HP;
@@ -38,6 +39,10 @@ public class Player{
      if(target.vulnerable>0)
        dmg=(int)(dmg*1.5);
      return dmg;
-}
+  }
+  public void drawPlayer(int x,int y){
+    image(pic,x,y);
+  }
+    
 
 }

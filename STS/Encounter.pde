@@ -27,9 +27,6 @@ public class Encounter{
         reshuffle();
       }
       hand.add(drawPile.remove(drawPile.size()-1));
-      println(hand);
-      delay(200);
-      redraw();
     }
   }
   public void reshuffle(){

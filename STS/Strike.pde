@@ -16,6 +16,7 @@ public class Strike extends Card{
     fill(255);
     rect(x,y,100,160);
     fill(0);
-    text(super.text,x+10,y+80);
+    textSize(13);
+    text(super.text,x+10,y+80,80,80);
   }
 }
