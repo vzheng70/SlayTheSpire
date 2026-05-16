@@ -1,12 +1,18 @@
 public class Cultist extends Enemy{
-  private int strength;
   private int ritual;
   public Cultist(){
-    String[] attackPattern={"Strike"};
-    super(55,attackPattern);
-    ritual=0;strength=0;
+    super(55,new String[]{"Ritual","Strike"});
+    ritual=0;
   }
   public void playTurn(){
-    if(thisEncounter.turnNumber==1){
+    String currentMove=super.attackPattern[super.move];
+    if(currentMove.equals("Strike")){
+      theSilent.takeDamage(6+super.strength);
+    }
+    if(ritual>0)super.strength+=ritual;
+    if(currentMove.equals("Ritual")){
       ritual=5;
-    }else
+      super.move=1;
+    }
+  }
+}

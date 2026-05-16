@@ -1,6 +1,7 @@
 public abstract class Enemy{
-  private int HP,maxHP,block,weak,vulnerable;
+  private int HP,maxHP,block,weak,vulnerable,strength;
   private String[] attackPattern;
+  private int move;
   private boolean dead;
   public Enemy(int HP, String[] attackPattern){
     this.HP=HP;
@@ -10,6 +11,8 @@ public abstract class Enemy{
     vulnerable=0;
     dead=false;
     this.attackPattern=attackPattern;
+    move=0;
+    strength=0;
   }
   public abstract void playTurn();
   public void die(){

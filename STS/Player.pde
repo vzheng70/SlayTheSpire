@@ -1,11 +1,12 @@
 public class Player{
-  private int HP,maxHP,block,weak,vulnerable;
+  private int HP,maxHP,block,weak,vulnerable,strength;
   public Player(int HP){
     this.HP=HP;
     maxHP=HP;
     block=0;
     weak=0;
     vulnerable=0;
+    strength=0;
   }
   public void takeDamage(int dmg){
     if(vulnerable>=1)
@@ -27,4 +28,16 @@ public class Player{
     weak--;vulnerable--;
     block=0;
   }
+  public void reset(){
+    vulnerable=0;
+    weak=0;
+    strength=0;
+  }
+  public int calcAttackDamage(int dmg,Enemy target){
+     dmg+=strength;
+     if(target.vulnerable>0)
+       dmg=(int)(dmg*1.5);
+     return dmg;
+}
+
 }

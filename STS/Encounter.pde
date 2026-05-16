@@ -3,8 +3,8 @@ public class Encounter{
   private int energy,turnNum;
   Enemy[] enemies;
   public Encounter(Enemy[] enemyLst){
+    theSilent.reset();
     enemies=enemyLst;
-    energy=3;
     turnNum=0;
     drawPile=new ArrayList<Card>();
     hand=new ArrayList<Card>();
@@ -19,13 +19,17 @@ public class Encounter{
     startTurn();
   }
   public void startTurn(){
-    turnNumber++;
+    turnNum++;
+    energy=3;
     theSilent.startPlayerTurn();
     for(int i=0;i<5;i++){
       if(drawPile.size()==0){
         reshuffle();
       }
       hand.add(drawPile.remove(drawPile.size()-1));
+      println(hand);
+      delay(200);
+      redraw();
     }
   }
   public void reshuffle(){
