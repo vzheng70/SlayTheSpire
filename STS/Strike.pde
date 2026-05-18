@@ -13,9 +13,12 @@ public class Strike extends Card{
     }
   }
   public void drawCard(int x,int y){
-    fill(255);
+    if(thisEncounter.selectedCard==this)
+      fill(255,230,230);
+    else
+      fill(255);
     rect(x,y,100,160);
-    fill(0);
+      fill(0);
     textSize(13);
     text(super.text,x+10,y+80,80,80);
   }

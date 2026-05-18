@@ -1,6 +1,8 @@
 public class Encounter{
   private ArrayList<Card> drawPile,hand,discardPile;
   private int energy,turnNum;
+  private Enemy selectedEnemy;
+  private Card selectedCard;
   Enemy[] enemies;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
@@ -35,11 +37,13 @@ public class Encounter{
     }
   }
   public void endTurn(){
-    for(Card card:hand)
-      card.discard();
+    println("turn end");
+    while(hand.size()>0)
+      hand.get(0).discard();
     for(Enemy e:enemies){
       e.playTurn();
     }
+    delay(200);
     startTurn();
   }
 }

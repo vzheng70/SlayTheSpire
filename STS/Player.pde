@@ -41,7 +41,9 @@ public class Player{
      return dmg;
   }
   public void drawPlayer(int x,int y){
-    image(pic,x,y);
+    fill(200,255,200);
+    rect(x,y,100,200);
+    //image(pic,x,y);
   }
     
 

@@ -1,5 +1,5 @@
 public abstract class Enemy{
-  private int HP,maxHP,block,weak,vulnerable,strength;
+  private int HP,maxHP,block,weak,vulnerable,strength,x,y,enemyWidth,enemyHeight;
   private String[] attackPattern;
   private int move;
   private boolean dead;
@@ -15,6 +15,7 @@ public abstract class Enemy{
     strength=0;
   }
   public abstract void playTurn();
+  public abstract void drawEnemy();
   public void die(){
     dead=true;
   }

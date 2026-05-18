@@ -1,7 +1,11 @@
 public class Cultist extends Enemy{
   private int ritual;
-  public Cultist(){
+  public Cultist(int x,int y){
     super(55,new String[]{"Ritual","Strike"});
+    super.x=x;
+    super.y=y;
+    super.enemyWidth=100;
+    super.enemyHeight=200;
     ritual=0;
   }
   public void playTurn(){
@@ -14,5 +18,14 @@ public class Cultist extends Enemy{
       ritual=5;
       super.move=1;
     }
+  }
+  public void drawEnemy(){
+    //print("drew");
+    
+    if(thisEncounter.selectedEnemy==this)
+      fill(120,120,200);
+    else 
+      fill(20,20,100);
+    rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
   }
 }
