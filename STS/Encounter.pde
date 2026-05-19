@@ -37,11 +37,12 @@ public class Encounter{
     }
   }
   public void endTurn(){
-    println("turn end");
+    //println("turn end");
     while(hand.size()>0)
       hand.get(0).discard();
     for(Enemy e:enemies){
-      e.playTurn();
+      if(!e.dead)
+        e.playTurn();
     }
     selectedCard=null;
     startTurn();

@@ -28,7 +28,7 @@ public class Player{
     this.weak+=weak;
   }
   public void startPlayerTurn(){
-    weak--;vulnerable--;
+    if(weak>0)weak--;if(vulnerable>0)vulnerable--;
     block=0;
   }
   public void reset(){
@@ -40,6 +40,8 @@ public class Player{
      dmg+=strength;
      if(target.vulnerable>0)
        dmg=(int)(dmg*1.5);
+     if(weak>0)
+       dmg=(int)(dmg*.75);
      return dmg;
   }
   public void drawPlayer(int x,int y){
@@ -50,9 +52,9 @@ public class Player{
     text(HP+"/"+maxHP,x,y+200,100,20);
     if(block>0){
       fill(111,255,242);
-      circle(x-10,y+200,10);
+      circle(x-10,y+208,20);
       fill(88,198,188);
-      text(block,x-10,y+200);
+      text(""+block,x-15,y+215);
     }
     //image(pic,x,y);
   }

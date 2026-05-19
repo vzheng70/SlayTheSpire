@@ -7,7 +7,11 @@ void setup(){
   size(1080,640);
   PImage pic=loadImage("images/Silent.png");
   theSilent.pic=pic;
-  for(int i=0;i<5;i++)deck.add(new Strike());
+  for(int i=0;i<5;i++){
+    deck.add(new Strike());
+    deck.add(new Defend());
+  }
+  deck.add(new Neutralize());
   thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
 }
 void draw(){
@@ -31,7 +35,7 @@ void draw(){
     Card card=thisEncounter.hand.get(i);
     card.drawCard((width/2-40)+((i-thisEncounter.hand.size()/2)*100),480);
     int cardX=(width/2-40)+((i-thisEncounter.hand.size()/2)*100);
-    if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640){
+    if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&!mousePressed){
       thisEncounter.selectedCard=card;
       selected=true;
     }
@@ -68,8 +72,8 @@ public void mouseReleased(){
   Card card=thisEncounter.selectedCard;
   if(card!=null){
     if(card.cardType>1&&mouseY<450){
-      print("played");
-      //card.play();
+      //print("played");
+      card.play();
     }else{
       if(thisEncounter.selectedEnemy!=null)
         card.play(thisEncounter.selectedEnemy);

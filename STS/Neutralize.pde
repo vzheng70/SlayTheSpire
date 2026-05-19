@@ -1,16 +1,20 @@
-public class Defend extends Card{
-  public Defend(){
-    super(1,2,false,"gain 5 block");
+public class Neutralize extends Card{
+  public Neutralize(){
+    super(0,1,false,"Deal 3 damage\nApply 1 weak");
   }
   public void play(Enemy target){
-    play();
+    if(thisEncounter.energy>=super.energyCost){
+      int dmg=3;
+      if(super.upgrade)dmg=4;
+      dmg=theSilent.calcAttackDamage(dmg,target);
+      //print(dmg);
+      target.takeDamage(dmg);
+      target.recieveDebuff(0,1);
+      thisEncounter.energy-=super.energyCost;
+      this.discard();
+    }
   }
   public void play(){
-    if(thisEncounter.energy>=super.energyCost){
-      theSilent.gainBlock(5);
-      thisEncounter.energy-=super.energyCost;
-      discard();
-    }
   }
   public void drawCard(int x,int y){
     if(thisEncounter.selectedCard==this)

@@ -16,11 +16,17 @@ public abstract class Enemy{
   }
   public abstract void playTurn();
   public abstract void drawEnemy();
+  public void endOfTurn(){
+    if(weak>0)
+      weak--;
+    if(vulnerable>0)
+      vulnerable--;
+  }
   public void die(){
     dead=true;
   }
   public void takeDamage(int dmg){
-    print(dmg);
+    //print(dmg);
     if(vulnerable>=1)
       block-=(int)(dmg*1.5);
     else
@@ -37,5 +43,14 @@ public abstract class Enemy{
   public void recieveDebuff(int vuln,int weak){
     vulnerable+=vuln;
     this.weak+=weak;
+  }
+  public int calcAttackDamage(int dmg){
+     dmg+=strength;
+     if(theSilent.vulnerable>0)
+       dmg=(int)(dmg*1.5);
+     if(weak>0)
+       dmg=(int)(dmg*.75);
+     print(dmg);
+     return dmg;
   }
 }

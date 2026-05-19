@@ -11,13 +11,15 @@ public class Cultist extends Enemy{
   public void playTurn(){
     String currentMove=super.attackPattern[super.move];
     if(currentMove.equals("Strike")){
-      theSilent.takeDamage(6+super.strength);
+      int dmg = calcAttackDamage(6);
+      theSilent.takeDamage(dmg);
     }
     if(ritual>0)super.strength+=ritual;
     if(currentMove.equals("Ritual")){
       ritual=5;
       super.move=1;
     }
+    endOfTurn();
   }
   public void drawEnemy(){
     //print("drew");
