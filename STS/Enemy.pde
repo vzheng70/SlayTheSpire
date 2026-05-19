@@ -20,13 +20,16 @@ public abstract class Enemy{
     dead=true;
   }
   public void takeDamage(int dmg){
+    print(dmg);
     if(vulnerable>=1)
       block-=(int)(dmg*1.5);
     else
       block-=dmg;
-    if(block<0)
+    if(block<0){
       HP+=block;
-    if (HP<0)HP=0;
+      block=0;
+    }
+    if (HP<0){HP=0;die();}
   }
   public void gainBlock(int blk){
     block+=blk;

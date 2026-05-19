@@ -4,6 +4,8 @@ public abstract class Card{
   private boolean upgrade;
   private String text;
   public abstract void drawCard(int x,int y);
+  public abstract void play(Enemy target);
+  public abstract void play();
   public Card(int cost,int type, boolean upgraded, String txt){
     energyCost=cost;
     cardType=type;

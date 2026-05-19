@@ -14,8 +14,10 @@ public class Player{
       block-=(int)(dmg*1.5);
     else
       block-=dmg;
-    if(block<0)
+    if(block<0){
       HP+=block;
+      block=0;
+    }
     if (HP<0)HP=0;
   }
   public void gainBlock(int blk){
@@ -43,6 +45,15 @@ public class Player{
   public void drawPlayer(int x,int y){
     fill(200,255,200);
     rect(x,y,100,200);
+    fill(255);
+    textSize(20);
+    text(HP+"/"+maxHP,x,y+200,100,20);
+    if(block>0){
+      fill(111,255,242);
+      circle(x-10,y+200,10);
+      fill(88,198,188);
+      text(block,x-10,y+200);
+    }
     //image(pic,x,y);
   }
     

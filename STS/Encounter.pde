@@ -43,7 +43,7 @@ public class Encounter{
     for(Enemy e:enemies){
       e.playTurn();
     }
-    delay(200);
+    selectedCard=null;
     startTurn();
   }
 }
