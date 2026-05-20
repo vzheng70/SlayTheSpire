@@ -29,8 +29,11 @@ public class Cultist extends Enemy{
     else 
       fill(20,20,100);
     rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
-    fill(255);
-    textSize(20);
-    text(super.HP+"/"+super.maxHP,super.x,super.y+200,100,20);
+    drawStatuses();
+    if(super.attackPattern[super.move]=="Ritual"){
+      drawBuffArrow();
+    }else{
+      drawAttackIntent(calcAttackDamage(6));
+    }
   }
 }

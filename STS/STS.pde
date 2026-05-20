@@ -12,7 +12,9 @@ void setup(){
     deck.add(new Defend());
   }
   deck.add(new Neutralize());
+  deck.add(new Survivor());
   thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
+  textAlign(CENTER);
 }
 void draw(){
   background(50);
@@ -89,17 +91,17 @@ public void drawUI(){
   triangle(50,550,130,550,90,480);
   fill(255);
   textSize(60);
-  text(thisEncounter.energy,75,545);
+  text(thisEncounter.energy,90,545);
   fill(30);
   circle(50,600,50);
   circle(1030,600,50);
   fill(255,0,0);
   textSize(40);
-  text(thisEncounter.drawPile.size(),40,615);
-  text(thisEncounter.discardPile.size(),1020,615);
+  text(thisEncounter.drawPile.size(),50,615);
+  text(thisEncounter.discardPile.size(),1030,615);
   fill(40,115,137);
   rect(900,500,100,40);
   fill(255);
   textSize(25);
-  text("End Turn",905,510,100,40);
+  text("End Turn",900,510,100,40);
 }

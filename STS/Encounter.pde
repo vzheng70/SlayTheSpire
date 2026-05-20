@@ -47,4 +47,19 @@ public class Encounter{
     selectedCard=null;
     startTurn();
   }
+  public Card cardSelection(String txt){
+    while(true){
+      fill(255);
+      textSize(50);
+      text(txt,width/2,height/3);
+      for(int i=0;i<hand.size();i++){
+        Card card=hand.get(i);
+        int cardX=(width/2-40)+((i-thisEncounter.hand.size()/2)*100);
+        if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&mousePressed){
+          return card;
+        }
+      }
+    }
+    //return hand.get(0);
+  }
 }

@@ -50,7 +50,31 @@ public abstract class Enemy{
        dmg=(int)(dmg*1.5);
      if(weak>0)
        dmg=(int)(dmg*.75);
-     print(dmg);
+     //print(dmg);
      return dmg;
+  }
+  public void drawBuffArrow(){
+    fill(45,234,233);
+    rect(x+enemyWidth/2-10, y-30,20,20);
+    triangle(x+enemyWidth/2-15,y-30,x+enemyWidth/2,y-40,x+enemyWidth/2+15,y-30);
+  }
+  public void drawStatuses(){
+    int offset=0;
+    fill(255);
+    textSize(20);
+    text(HP+"/"+maxHP,x,y+enemyHeight,100,20);
+    textSize(10);
+    if(vulnerable>0){
+      text(vulnerable,x+offset,y+enemyHeight+20);
+      offset+=10;
+    }if(weak>0){
+      text(weak,x+offset,y+enemyHeight+20);
+      offset+=10;
+    }
+  }
+  public void drawAttackIntent(int dmg){
+    fill(229,137,154);
+    textSize(20);
+    text(dmg,x+enemyWidth/2,y-30);
   }
 }

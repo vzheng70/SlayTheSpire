@@ -54,7 +54,7 @@ public class Player{
       fill(111,255,242);
       circle(x-10,y+208,20);
       fill(88,198,188);
-      text(""+block,x-15,y+215);
+      text(""+block,x-10,y+215);
     }
     //image(pic,x,y);
   }
