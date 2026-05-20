@@ -2,7 +2,8 @@ public class Encounter{
   private ArrayList<Card> drawPile,hand,discardPile;
   private int energy,turnNum;
   private Enemy selectedEnemy;
-  private Card selectedCard;
+  private Card selectedCard=null;
+  private boolean cardSelectionScreen=false;
   Enemy[] enemies;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
@@ -28,7 +29,9 @@ public class Encounter{
       if(drawPile.size()==0){
         reshuffle();
       }
+      //delay(200);
       hand.add(drawPile.remove(drawPile.size()-1));
+      //drawHand();
     }
   }
   public void reshuffle(){
@@ -48,18 +51,70 @@ public class Encounter{
     startTurn();
   }
   public Card cardSelection(String txt){
-    while(true){
-      fill(255);
-      textSize(50);
-      text(txt,width/2,height/3);
-      for(int i=0;i<hand.size();i++){
-        Card card=hand.get(i);
-        int cardX=(width/2-40)+((i-thisEncounter.hand.size()/2)*100);
-        if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&mousePressed){
-          return card;
+    cardSelectionScreen=true;
+    
+    //return hand.get(0);
+  }
+  public void showEnemies(){
+    boolean selected=false;
+    for(int i=0;i<enemies.length;i++){
+      Enemy e=enemies[i];
+      if(!e.dead){
+        if(mouseX>e.x&&mouseX<e.x+e.enemyWidth&&mouseY>e.y&&mouseY<e.y+e.enemyHeight){
+          selectedEnemy=e;
+          selected=true;
         }
+        
+        e.drawEnemy();
       }
     }
-    //return hand.get(0);
+    if (!selected)
+      selectedEnemy=null;
+  }
+  public void pickHand(){
+    boolean selected=false;
+    for(int i=0;i<hand.size();i++){
+      Card card=hand.get(i);
+      //card.drawCard((width/2-40)+((i-hand.size()/2)*100),480);
+      int cardX=(width/2-40)+((i-hand.size()/2)*100);
+      if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&!mousePressed){
+        selectedCard=card;
+        selected=true;
+      }
+    }
+    if (!selected&&!mousePressed)
+      selectedCard=null;
+    if(selectedCard!=null&&mousePressed){
+      fill(0);
+      line((width/2)+((hand.indexOf(selectedCard)-hand.size()/2)*100),500,mouseX,mouseY);
+    }
+  }
+  public void drawHand(){
+    if(cardSelectionScreen)
+      background(50,.5);
+    for(int i=0;i<hand.size();i++){
+      Card card=hand.get(i);
+      int cardX=(width/2-40)+((i-hand.size()/2)*100);
+      card.drawCard(cardX,480);
+    }
+  }
+  public void drawUI(){
+    fill(50,255,50);
+    triangle(50,550,130,550,90,480);
+    fill(255);
+    textSize(60);
+    text(energy,90,545);
+    fill(30);
+    circle(50,600,50);
+    circle(1030,600,50);
+    fill(255,0,0);
+    textSize(40);
+    text(drawPile.size(),50,615);
+    text(discardPile.size(),1030,615);
+    fill(40,115,137);
+    rect(900,500,100,40);
+    fill(255);
+    textSize(25);
+    text("End Turn",900,510,100,40);
   }
 }

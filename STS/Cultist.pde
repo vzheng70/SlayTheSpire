@@ -1,7 +1,7 @@
 public class Cultist extends Enemy{
   private int ritual;
   public Cultist(int x,int y){
-    super(55,new String[]{"Ritual","Strike"});
+    super(51,new String[]{"Ritual","Strike"});
     super.x=x;
     super.y=y;
     super.enemyWidth=100;

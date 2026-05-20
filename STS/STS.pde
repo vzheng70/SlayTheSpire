@@ -18,39 +18,12 @@ void setup(){
 }
 void draw(){
   background(50);
-  boolean selected=false;
-  for(int i=0;i<thisEncounter.enemies.length;i++){
-    Enemy e=thisEncounter.enemies[i];
-    if(!e.dead){
-      if(mouseX>e.x&&mouseX<e.x+e.enemyWidth&&mouseY>e.y&&mouseY<e.y+e.enemyHeight){
-        thisEncounter.selectedEnemy=e;
-        selected=true;
-      }
-      
-      e.drawEnemy();
-    }
-  }
-  if (!selected)
-    thisEncounter.selectedEnemy=null;
-  selected=false;
-  for(int i=0;i<thisEncounter.hand.size();i++){
-    Card card=thisEncounter.hand.get(i);
-    card.drawCard((width/2-40)+((i-thisEncounter.hand.size()/2)*100),480);
-    int cardX=(width/2-40)+((i-thisEncounter.hand.size()/2)*100);
-    if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&!mousePressed){
-      thisEncounter.selectedCard=card;
-      selected=true;
-    }
-  }
-  if (!selected&&!mousePressed)
-    thisEncounter.selectedCard=null;
-  if(thisEncounter.selectedCard!=null&&mousePressed){
-    fill(0);
-    line((width/2)+((thisEncounter.hand.indexOf(thisEncounter.selectedCard)-thisEncounter.hand.size()/2)*100),500,mouseX,mouseY);
-  }
+  thisEncounter.showEnemies();
+  thisEncounter.drawHand();
+  thisEncounter.pickHand();
   theSilent.drawPlayer(180,200);
   
-  drawUI();
+  thisEncounter.drawUI();
   if(theSilent.HP<=0){
     fill(255,0,0);
     textSize(100);
@@ -86,22 +59,3 @@ public void mouseReleased(){
       
     
   
-public void drawUI(){
-  fill(50,255,50);
-  triangle(50,550,130,550,90,480);
-  fill(255);
-  textSize(60);
-  text(thisEncounter.energy,90,545);
-  fill(30);
-  circle(50,600,50);
-  circle(1030,600,50);
-  fill(255,0,0);
-  textSize(40);
-  text(thisEncounter.drawPile.size(),50,615);
-  text(thisEncounter.discardPile.size(),1030,615);
-  fill(40,115,137);
-  rect(900,500,100,40);
-  fill(255);
-  textSize(25);
-  text("End Turn",900,510,100,40);
-}
