@@ -10,7 +10,6 @@ public class Survivor extends Card{
       theSilent.gainBlock(8);
       thisEncounter.energy-=super.energyCost;
       discard();
-      thisEncounter.cardSelection("Choose a card to discard").discard();
     }
   }
   public void drawCard(int x,int y){

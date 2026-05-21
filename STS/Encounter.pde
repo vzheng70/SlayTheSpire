@@ -3,7 +3,7 @@ public class Encounter{
   private int energy,turnNum;
   private Enemy selectedEnemy;
   private Card selectedCard=null;
-  private boolean cardSelectionScreen=false;
+  private String cardSelectionScreen=null;
   Enemy[] enemies;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
@@ -50,11 +50,7 @@ public class Encounter{
     selectedCard=null;
     startTurn();
   }
-  public Card cardSelection(String txt){
-    cardSelectionScreen=true;
-    
-    //return hand.get(0);
-  }
+  
   public void showEnemies(){
     boolean selected=false;
     for(int i=0;i<enemies.length;i++){
