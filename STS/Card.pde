@@ -15,5 +15,6 @@ public abstract class Card{
   public void discard(){
     thisEncounter.hand.remove(this);
     thisEncounter.discardPile.add(this);    
+    thisEncounter.selectedCard=null;
   }
 }

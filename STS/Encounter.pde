@@ -3,7 +3,7 @@ public class Encounter{
   private int energy,turnNum;
   private Enemy selectedEnemy;
   private Card selectedCard=null;
-  private String cardSelectionScreen=null;
+  private CardSelectionScreen cardSelect=null;
   Enemy[] enemies;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
@@ -86,16 +86,28 @@ public class Encounter{
     }
   }
   public void drawHand(){
-    if(cardSelectionScreen)
-      background(50,.5);
     for(int i=0;i<hand.size();i++){
       Card card=hand.get(i);
       int cardX=(width/2-40)+((i-hand.size()/2)*100);
       card.drawCard(cardX,480);
     }
   }
+  public void drawCardSelection(){
+    if(cardSelect!=null){
+      fill(20,50);
+      rect(0,0,width,height);
+      fill(255);
+      textSize(100);
+      text(cardSelect.txt,width/2,height/3);
+      if(selectedCard!=null&&mousePressed){
+        cardSelect.cardSelected=selectedCard;
+        cardSelect.discardSelectedCard();
+        cardSelect=null;
+      }
+    }
+  }
   public void drawUI(){
-    fill(50,255,50);
+    fill(50,255,70);
     triangle(50,550,130,550,90,480);
     fill(255);
     textSize(60);

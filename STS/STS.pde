@@ -19,11 +19,13 @@ void setup(){
 void draw(){
   background(50);
   thisEncounter.showEnemies();
-  thisEncounter.drawHand();
+  thisEncounter.drawUI();
   thisEncounter.pickHand();
   theSilent.drawPlayer(180,200);
+  thisEncounter.drawCardSelection();
+  thisEncounter.drawHand();
   
-  thisEncounter.drawUI();
+  
   if(theSilent.HP<=0){
     fill(255,0,0);
     textSize(100);
