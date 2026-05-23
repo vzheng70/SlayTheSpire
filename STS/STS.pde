@@ -3,6 +3,8 @@ Encounter thisEncounter;
 Player theSilent=new Player(70);
 ViewCardScreen cardView=null;
 //boolean cardSelected=false;
+Map currentMap;
+int floorNum=0;
 void setup(){
   background(50);
   size(1080,640);
@@ -14,18 +16,23 @@ void setup(){
   }
   deck.add(new Neutralize());
   deck.add(new Survivor());
-  thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
+  currentMap=new Map();
+  
   textAlign(CENTER);
 }
 void draw(){
   background(50);
-  thisEncounter.showEnemies();
-  thisEncounter.drawUI();
-  thisEncounter.pickHand();
-  theSilent.drawPlayer(180,200);
+  
+  if(thisEncounter!=null){
+    thisEncounter.showEnemies();  
+    thisEncounter.pickHand();
+    theSilent.drawPlayer(180,200);
+    thisEncounter.drawCardSelection();
+    thisEncounter.drawHand();
+    thisEncounter.drawUI();
+  }
+  currentMap.viewMap();
   drawToolBar();
-  thisEncounter.drawCardSelection();
-  thisEncounter.drawHand();
   viewCards();
   
   
@@ -46,40 +53,61 @@ public void delay(int millis){
 }
 public void mousePressed(){
   if(cardView!=null){
-    if(mouseX>width-50&&mouseX<width&&mouseY>500&&mouseY<550){
+    if(checkMouse(width-50,width,500,550)){
       cardView=null;
     }
-  }else{
-    if(mouseX>900&&mouseX<1000&&mouseY>500&&mouseY<540){
-      thisEncounter.endTurn();
+  }else if(thisEncounter!=null){
+    if(checkMouse(width-170,width-130,5,45)){
+        if(currentMap.mapOpened)
+          currentMap.mapOpened=false;
+        else
+          currentMap.mapOpened=true;
+      }
+    if(!currentMap.mapOpened){
+      if (thisEncounter.cardSelect==null){
+        if(checkMouse(900,1000,500,540)){
+          thisEncounter.endTurn();
+        }
+        if(checkMouse(25,75,575,625)){
+          cardView=new ViewCardScreen(thisEncounter.drawPile);
+        }
+        if(checkMouse(1005,1055,575,625)){
+          cardView=new ViewCardScreen(thisEncounter.discardPile);
+        }
+        if(checkMouse(width-80,width-40,5,45)){
+          cardView=new ViewCardScreen(deck);
+        }
+      }
     }
-    if(mouseX>25&&mouseX<75&&mouseY>575&&mouseY<625){
-      cardView=new ViewCardScreen(thisEncounter.drawPile);
-    }
-    if(mouseX>1005&&mouseX<1055&&mouseY>575&&mouseY<625){
-      cardView=new ViewCardScreen(thisEncounter.discardPile);
-    }
-    if(mouseX>width-80&&mouseX<width-40&&mouseY>5&&mouseY<45){
-      cardView=new ViewCardScreen(deck);
+  }else if(currentMap.mapOpened){
+    Node next=currentMap.nodes[floorNum];
+    if(checkMouse((int)next.location.x,(int)next.location.x+20,(int)next.location.y-currentMap.scroll,(int)next.location.y-currentMap.scroll+20)){
+      thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
+      currentMap.mapOpened=false;
     }
   }
 }
 public void mouseReleased(){
-  Card card=thisEncounter.selectedCard;
-  if(card!=null){
-    if(card.cardType>1&&mouseY<450){
-      //print("played");
-      card.play();
-    }else{
-      if(thisEncounter.selectedEnemy!=null)
-        card.play(thisEncounter.selectedEnemy);
+  if(thisEncounter!=null){
+    Card card=thisEncounter.selectedCard;
+    if(card!=null){
+      if(card.cardType>1&&mouseY<450){
+        //print("played");
+        card.play();
+      }else{
+        if(thisEncounter.selectedEnemy!=null)
+          card.play(thisEncounter.selectedEnemy);
+      }
     }
+    thisEncounter.selectedCard=null;
   }
-  thisEncounter.selectedCard=null;
 }
 public void mouseWheel(MouseEvent event){
   if(cardView!=null){
     cardView.scroll+=event.getCount()*10;
+  }
+  if(currentMap.mapOpened){
+    currentMap.scroll+=event.getCount()*10;
   }
 }
 public void viewCards(){
@@ -95,6 +123,11 @@ public void drawToolBar(){
   fill(255,0,0);
   textSize(30);
   text(deck.size(),width-60,35);
+  fill(30);
+  circle(width-150,25,40);
+}
+public boolean checkMouse(int minX,int maxX,int minY,int maxY){
+  return mouseX>minX&&mouseX<maxX&&mouseY>minY&&mouseY<maxY;
 }
       
     

@@ -25,7 +25,10 @@ public class Encounter{
     turnNum++;
     energy=3;
     theSilent.startPlayerTurn();
-    for(int i=0;i<5;i++){
+    int cardAdd=0;
+    if(turnNum==1)
+      cardAdd+=2;
+    for(int i=0;i<5+cardAdd;i++){
       if(drawPile.size()==0){
         reshuffle();
       }
@@ -50,7 +53,6 @@ public class Encounter{
     selectedCard=null;
     startTurn();
   }
-  
   public void showEnemies(){
       boolean selected=false;
       for(int i=0;i<enemies.length;i++){
@@ -68,13 +70,13 @@ public class Encounter{
         selectedEnemy=null;    
   }
   public void pickHand(){
-    if(cardView==null){
+    if(cardView==null&&!currentMap.mapOpened){
       boolean selected=false;
       for(int i=0;i<hand.size();i++){
         Card card=hand.get(i);
         //card.drawCard((width/2-40)+((i-hand.size()/2)*100),480);
-        int cardX=(width/2-40)+((i-hand.size()/2)*100);
-        if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&!mousePressed){
+        int cardX=(width/2-60)+((i-hand.size()/2)*120);
+        if(mouseX>cardX&&mouseX<cardX+120&&mouseY>480&&mouseY<640&&!mousePressed){
           selectedCard=card;
           selected=true;
         }
@@ -83,15 +85,15 @@ public class Encounter{
         selectedCard=null;
       if(selectedCard!=null&&mousePressed){
         fill(0);
-        line((width/2)+((hand.indexOf(selectedCard)-hand.size()/2)*100),500,mouseX,mouseY);
+        line((width/2)+((hand.indexOf(selectedCard)-hand.size()/2)*120),500,mouseX,mouseY);
       }
     }
   }
   public void drawHand(){
     for(int i=0;i<hand.size();i++){
       Card card=hand.get(i);
-      int cardX=(width/2-40)+((i-hand.size()/2)*100);
-      card.drawCard(cardX,480);
+      int cardX=(width/2-60)+((i-hand.size()/2)*120);
+      card.drawCard(cardX,480,120);
     }
   }
   public void drawCardSelection(){

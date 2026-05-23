@@ -1,6 +1,6 @@
 public class Defend extends Card{
   public Defend(){
-    super(1,2,false,"gain 5 block");
+    super(1,2,false,"../images/Defend_Silent.png");
   }
   public void play(Enemy target){
     play();
@@ -12,16 +12,5 @@ public class Defend extends Card{
       discard();
     }
   }
-  public void drawCard(int x,int y){
-    if(thisEncounter.selectedCard==this)
-      fill(255,230,230);
-    else
-      fill(255);
-    if(thisEncounter.selectedCard==this)
-      y-=10;
-    rect(x,y,100,160);
-      fill(0);
-    textSize(13);
-    text(super.text,x+10,y+80,80,80);
-  }
+
 }

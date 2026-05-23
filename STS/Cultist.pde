@@ -1,10 +1,10 @@
 public class Cultist extends Enemy{
   private int ritual;
   public Cultist(int x,int y){
-    super(51,new String[]{"Ritual","Strike"});
+    super(51,new String[]{"Ritual","Strike"},"../images/Cultist.png");
     super.x=x;
     super.y=y;
-    super.enemyWidth=100;
+    super.enemyWidth=200;
     super.enemyHeight=200;
     ritual=0;
   }
@@ -22,13 +22,8 @@ public class Cultist extends Enemy{
     endOfTurn();
   }
   public void drawEnemy(){
-    //print("drew");
-    
-    if(thisEncounter.selectedEnemy==this)
-      fill(120,120,200);
-    else 
-      fill(20,20,100);
-    rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
+    image(pic,super.x,super.y,super.enemyWidth,super.enemyHeight);
+    //rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
     drawStatuses();
     if(super.attackPattern[super.move]=="Ritual"){
       drawBuffArrow();

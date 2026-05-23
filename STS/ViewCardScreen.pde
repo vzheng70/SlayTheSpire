@@ -18,7 +18,7 @@ public class ViewCardScreen{
         y+=200;
       }
       Card c=cards.get(i);
-      c.drawCard(x,y);
+      c.drawCard(x,y,130);
       x+=130;
     }
   }

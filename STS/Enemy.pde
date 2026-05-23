@@ -3,7 +3,8 @@ public abstract class Enemy{
   private String[] attackPattern;
   private int move;
   private boolean dead;
-  public Enemy(int HP, String[] attackPattern){
+  PImage pic;
+  public Enemy(int HP, String[] attackPattern,String fileName){
     this.HP=HP;
     maxHP=HP;
     block=0;
@@ -13,6 +14,7 @@ public abstract class Enemy{
     this.attackPattern=attackPattern;
     move=0;
     strength=0;
+    pic=loadImage(fileName);
   }
   public abstract void playTurn();
   public abstract void drawEnemy();
@@ -62,7 +64,7 @@ public abstract class Enemy{
     int offset=0;
     fill(255);
     textSize(20);
-    text(HP+"/"+maxHP,x,y+enemyHeight,100,20);
+    text(HP+"/"+maxHP,x+enemyWidth/4,y+enemyHeight,100,20);
     textSize(10);
     if(vulnerable>0){
       text(vulnerable,x+offset,y+enemyHeight+20);
@@ -70,6 +72,17 @@ public abstract class Enemy{
     }if(weak>0){
       text(weak,x+offset,y+enemyHeight+20);
       offset+=10;
+    }
+    if(thisEncounter.selectedEnemy==this){
+      fill(0);
+      line(x,y,x+20,y);
+      line(x,y,x,y+20);
+      line(x+enemyWidth,y,x+enemyWidth-20,y);
+      line(x+enemyWidth,y,x+enemyWidth,y+20);
+      line(x+enemyWidth,y+enemyHeight,x+enemyWidth,y+enemyHeight-20);
+      line(x+enemyWidth,y+enemyHeight,x+enemyWidth-20,y+enemyHeight);
+      line(x,y+enemyHeight,x,y+enemyHeight-20);
+      line(x,y+enemyHeight,x+20,y+enemyHeight);
     }
   }
   public void drawAttackIntent(int dmg){

@@ -45,8 +45,7 @@ public class Player{
      return dmg;
   }
   public void drawPlayer(int x,int y){
-    fill(200,255,200);
-    rect(x,y,100,200);
+    image(pic,x-40,y,200,220);
     fill(255);
     textSize(20);
     text(HP+"/"+maxHP,x,y+200,100,20);
