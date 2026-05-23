@@ -4,7 +4,7 @@ public class Encounter{
   private Enemy selectedEnemy;
   private Card selectedCard=null;
   private CardSelectionScreen cardSelect=null;
-  Enemy[] enemies;
+  private Enemy[] enemies;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
     enemies=enemyLst;
@@ -52,37 +52,39 @@ public class Encounter{
   }
   
   public void showEnemies(){
-    boolean selected=false;
-    for(int i=0;i<enemies.length;i++){
-      Enemy e=enemies[i];
-      if(!e.dead){
-        if(mouseX>e.x&&mouseX<e.x+e.enemyWidth&&mouseY>e.y&&mouseY<e.y+e.enemyHeight){
-          selectedEnemy=e;
-          selected=true;
+      boolean selected=false;
+      for(int i=0;i<enemies.length;i++){
+        Enemy e=enemies[i];
+        if(!e.dead){
+          if(mouseX>e.x&&mouseX<e.x+e.enemyWidth&&mouseY>e.y&&mouseY<e.y+e.enemyHeight){
+            selectedEnemy=e;
+            selected=true;
+          }
+          
+          e.drawEnemy();
         }
-        
-        e.drawEnemy();
       }
-    }
-    if (!selected)
-      selectedEnemy=null;
+      if (!selected)
+        selectedEnemy=null;    
   }
   public void pickHand(){
-    boolean selected=false;
-    for(int i=0;i<hand.size();i++){
-      Card card=hand.get(i);
-      //card.drawCard((width/2-40)+((i-hand.size()/2)*100),480);
-      int cardX=(width/2-40)+((i-hand.size()/2)*100);
-      if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&!mousePressed){
-        selectedCard=card;
-        selected=true;
+    if(cardView==null){
+      boolean selected=false;
+      for(int i=0;i<hand.size();i++){
+        Card card=hand.get(i);
+        //card.drawCard((width/2-40)+((i-hand.size()/2)*100),480);
+        int cardX=(width/2-40)+((i-hand.size()/2)*100);
+        if(mouseX>cardX&&mouseX<cardX+100&&mouseY>480&&mouseY<640&&!mousePressed){
+          selectedCard=card;
+          selected=true;
+        }
       }
-    }
-    if (!selected&&!mousePressed)
-      selectedCard=null;
-    if(selectedCard!=null&&mousePressed){
-      fill(0);
-      line((width/2)+((hand.indexOf(selectedCard)-hand.size()/2)*100),500,mouseX,mouseY);
+      if (!selected&&!mousePressed)
+        selectedCard=null;
+      if(selectedCard!=null&&mousePressed){
+        fill(0);
+        line((width/2)+((hand.indexOf(selectedCard)-hand.size()/2)*100),500,mouseX,mouseY);
+      }
     }
   }
   public void drawHand(){
