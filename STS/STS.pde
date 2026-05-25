@@ -1,14 +1,16 @@
+import java.util.*;
 ArrayList<Card> deck=new ArrayList<Card>();
 Encounter thisEncounter;
 Player theSilent=new Player(70);
 ViewCardScreen cardView=null;
-//boolean cardSelected=false;
 Map currentMap;
 int floorNum=0;
+int fightNum=0;
+ArrayList<String> easyPool=new ArrayList<>(Arrays.asList("Cultist","Jaw Worm","Fuzzy Wurm Crawler"));
 void setup(){
   background(50);
   size(1080,640);
-  PImage pic=loadImage("images/Silent.png");
+  PImage pic=loadImage("../images/Silent.png");
   theSilent.pic=pic;
   for(int i=0;i<5;i++){
     deck.add(new Strike());
@@ -16,6 +18,9 @@ void setup(){
   }
   deck.add(new Neutralize());
   deck.add(new Survivor());
+  deck.add(new BackFlip());
+  deck.add(new BladeDance());
+  deck.add(new PoisonStab());
   currentMap=new Map();
   
   textAlign(CENTER);
@@ -30,6 +35,8 @@ void draw(){
     thisEncounter.drawCardSelection();
     thisEncounter.drawHand();
     thisEncounter.drawUI();
+    if(thisEncounter.finished)
+      thisEncounter=null;
   }
   currentMap.viewMap();
   drawToolBar();
@@ -44,13 +51,6 @@ void draw(){
   }
 }
 
-public void delay(int millis){
-  try {
-    Thread.sleep(millis);
-  }
-  catch (InterruptedException e) {
-  }
-}
 public void mousePressed(){
   if(cardView!=null){
     if(checkMouse(width-50,width,500,550)){
@@ -82,10 +82,35 @@ public void mousePressed(){
   }else if(currentMap.mapOpened){
     Node next=currentMap.nodes[floorNum];
     if(checkMouse((int)next.location.x,(int)next.location.x+20,(int)next.location.y-currentMap.scroll,(int)next.location.y-currentMap.scroll+20)){
-      thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
+      if(next.type==1){
+        if(fightNum<=3)
+          startEasyEncounter();
+        fightNum++;
+      }
+      floorNum++;
       currentMap.mapOpened=false;
     }
-  }
+    if(checkMouse(width-170,width-130,5,45)){
+       currentMap.mapOpened=false;
+    }
+  }else{
+    if(checkMouse(width-170,width-130,5,45)){
+        if(currentMap.mapOpened)
+          currentMap.mapOpened=false;
+        else
+          currentMap.mapOpened=true;
+    }
+  }    
+}
+public void startEasyEncounter(){
+  String selector=easyPool.remove((int)(Math.random()*easyPool.size()));
+  if(selector.equals("Cultist"))
+    thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
+  else if(selector.equals("Jaw Worm"))
+    thisEncounter=new Encounter(new Enemy[]{new JawWorm(720,300)});
+  else if(selector.equals("Fuzzy Wurm Crawler"))
+    thisEncounter=new Encounter(new Enemy[]{new WurmCrawler(720,250)});
+    
 }
 public void mouseReleased(){
   if(thisEncounter!=null){
@@ -129,6 +154,13 @@ public void drawToolBar(){
 public boolean checkMouse(int minX,int maxX,int minY,int maxY){
   return mouseX>minX&&mouseX<maxX&&mouseY>minY&&mouseY<maxY;
 }
-      
+
+public void delay(int millis){
+  try {
+    Thread.sleep(millis);
+  }
+  catch (InterruptedException e) {
+  }
+}      
     
   

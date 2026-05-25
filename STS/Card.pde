@@ -18,6 +18,10 @@ public abstract class Card{
     thisEncounter.discardPile.add(this);    
     thisEncounter.selectedCard=null;
   }
+  public void exhaust(){
+    thisEncounter.hand.remove(this);
+    thisEncounter.selectedCard=null;
+  }
   public void drawCard(int x,int y,int size){
     if(thisEncounter.selectedCard==this)
       y-=10;

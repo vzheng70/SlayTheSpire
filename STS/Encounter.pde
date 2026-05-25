@@ -5,6 +5,7 @@ public class Encounter{
   private Card selectedCard=null;
   private CardSelectionScreen cardSelect=null;
   private Enemy[] enemies;
+  private boolean finished=false;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
     enemies=enemyLst;
@@ -29,13 +30,20 @@ public class Encounter{
     if(turnNum==1)
       cardAdd+=2;
     for(int i=0;i<5+cardAdd;i++){
+      
+      //delay(200);
+      drawCard();
+      //drawHand();
+    }
+  }
+  public void drawCard(){   
+    if(hand.size()<10){
+      hand.add(drawPile.remove(drawPile.size()-1));
       if(drawPile.size()==0){
         reshuffle();
       }
-      //delay(200);
-      hand.add(drawPile.remove(drawPile.size()-1));
-      //drawHand();
-    }
+    }else
+      discardPile.add(drawPile.remove(drawPile.size()-1));
   }
   public void reshuffle(){
     while(discardPile.size()>0){
@@ -55,6 +63,7 @@ public class Encounter{
   }
   public void showEnemies(){
       boolean selected=false;
+      boolean allDead=true;
       for(int i=0;i<enemies.length;i++){
         Enemy e=enemies[i];
         if(!e.dead){
@@ -62,12 +71,14 @@ public class Encounter{
             selectedEnemy=e;
             selected=true;
           }
-          
+          allDead=false;
           e.drawEnemy();
         }
       }
       if (!selected)
         selectedEnemy=null;    
+      if(allDead)
+        finished=true;
   }
   public void pickHand(){
     if(cardView==null&&!currentMap.mapOpened){
