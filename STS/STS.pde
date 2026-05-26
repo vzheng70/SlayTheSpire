@@ -3,6 +3,7 @@ ArrayList<Card> deck=new ArrayList<Card>();
 Encounter thisEncounter;
 Player theSilent=new Player(70);
 ViewCardScreen cardView=null;
+CardRewardScreen cardRewards=null;
 Map currentMap;
 int floorNum=0;
 int fightNum=0;
@@ -29,15 +30,13 @@ void draw(){
   background(50);
   
   if(thisEncounter!=null){
-    thisEncounter.showEnemies();  
-    thisEncounter.pickHand();
-    theSilent.drawPlayer(180,200);
-    thisEncounter.drawCardSelection();
-    thisEncounter.drawHand();
-    thisEncounter.drawUI();
-    if(thisEncounter.finished)
+    thisEncounter.drawEncounter();
+    if(thisEncounter.finished){
       thisEncounter=null;
+      cardRewards=new CardRewardScreen();
+    }
   }
+  drawCardReward();
   currentMap.viewMap();
   drawToolBar();
   viewCards();
@@ -86,6 +85,7 @@ public void mousePressed(){
         if(fightNum<=3)
           startEasyEncounter();
         fightNum++;
+        cardRewards=null;
       }
       floorNum++;
       currentMap.mapOpened=false;
@@ -94,6 +94,11 @@ public void mousePressed(){
        currentMap.mapOpened=false;
     }
   }else{
+    if(cardRewards!=null){
+      if(checkMouse(width/2-120,height/2-120,width/2+120,height/2-70)){
+        cardRewards.seeReward=true;
+      }
+    }
     if(checkMouse(width-170,width-130,5,45)){
         if(currentMap.mapOpened)
           currentMap.mapOpened=false;
@@ -134,6 +139,10 @@ public void mouseWheel(MouseEvent event){
   if(currentMap.mapOpened){
     currentMap.scroll+=event.getCount()*10;
   }
+}
+public void drawCardReward(){
+  if(cardRewards!=null)
+    cardRewards.drawCardReward();
 }
 public void viewCards(){
   if (cardView!=null){

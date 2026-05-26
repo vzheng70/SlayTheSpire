@@ -61,6 +61,15 @@ public class Encounter{
     selectedCard=null;
     startTurn();
   }
+  public void drawEncounter(){
+    showEnemies();  
+    pickHand();
+    theSilent.drawPlayer(180,200);
+    drawCardSelection();
+    drawHand();
+    drawUI();
+  }
+  
   public void showEnemies(){
       boolean selected=false;
       boolean allDead=true;
