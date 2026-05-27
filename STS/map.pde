@@ -7,7 +7,7 @@ public class Map{
     nodes = new Node[16];
     for(int i=0;i<nodes.length;i++){
       if(i==0){
-        nodes[i]=new Node(width/2+((int)(Math.random()*20-10)),i*-100+500,3);
+        nodes[i]=new Node(width/2+((int)(Math.random()*20-10)),i*-100+500,1);
       }else{
         double rand=Math.random();
         if(rand<.4)
