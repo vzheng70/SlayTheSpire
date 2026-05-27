@@ -1,6 +1,6 @@
 public class Neutralize extends Card{
   public Neutralize(){
-    super(0,1,false,"../images/Neutralize.png");
+    super(0,1,false,"Neutralize");
   }
   public void play(Enemy target){
     if(thisEncounter.energy>=super.energyCost){
@@ -9,7 +9,9 @@ public class Neutralize extends Card{
       dmg=theSilent.calcAttackDamage(dmg,target);
       //print(dmg);
       target.takeDamage(dmg);
-      target.recieveDebuff(0,1);
+      int w=1;
+      if(super.upgrade)w=2;
+      target.recieveDebuff(0,w);
       thisEncounter.energy-=super.energyCost;
       this.discard();
     }

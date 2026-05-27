@@ -8,12 +8,18 @@ public class CardRewardScreen{
     }
   }
   public void drawCardReward(){
+    //print(seeReward);
     if(seeReward){
       for(int i=0;i<cardReward.length;i++){
         Card card=cardReward[i];
-        int cardX=(width/2-60)+((i-1)*120);
-        card.drawCard(cardX,480,120);
+        int cardX=(width/2-100)+((i-1)*200);
+        if(checkMouse(cardX,cardX+200,height/2-125,height/2+125))
+          card.drawCard(cardX,height/2-125,210);
+        else
+          card.drawCard(cardX,height/2-125,200);
       }
+      fill(40,115,137);
+      rect(width/2-100,height/2+175,200,50);
     }else {
       fill(100);
       rect(width/2-150,height/2-150,300,300);
@@ -21,7 +27,24 @@ public class CardRewardScreen{
         fill(150);
         rect(width/2-120,height/2-120,240,50);
       }
+      drawProceedArrow();
     }
+  }
+  public void addCard(){
+    if(mousePressed&&checkMouse(width/2-100,width/2+100,height/2+175,height/2+225)){
+      seeReward=false;
+      return;
+    }
+    for(int i=0;i<cardReward.length;i++){
+        Card card=cardReward[i];
+        int cardX=(width/2-100)+((i-1)*200);
+        if(mousePressed&&checkMouse(cardX,cardX+200,height/2-125,height/2+125)){
+          deck.add(card);
+          seeReward=false;
+          cardReward=null;
+          return;
+        }
+      }
   }
 }
         

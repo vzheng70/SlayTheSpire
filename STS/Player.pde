@@ -23,6 +23,11 @@ public class Player{
   public void gainBlock(int blk){
     block+=blk;
   }
+  public void rest(){
+    HP+=(int)(maxHP*.3);
+    if(HP>maxHP)
+      HP=maxHP;
+  }
   public void recieveDebuff(int vuln,int weak){
     vulnerable+=vuln;
     this.weak+=weak;

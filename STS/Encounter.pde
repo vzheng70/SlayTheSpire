@@ -96,7 +96,7 @@ public class Encounter{
         Card card=hand.get(i);
         //card.drawCard((width/2-40)+((i-hand.size()/2)*100),480);
         int cardX=(width/2-60)+((i-hand.size()/2)*120);
-        if(mouseX>cardX&&mouseX<cardX+120&&mouseY>480&&mouseY<640&&!mousePressed){
+        if(checkMouse(cardX,cardX+120,480,640)&&!mousePressed){
           selectedCard=card;
           selected=true;
         }
@@ -105,7 +105,9 @@ public class Encounter{
         selectedCard=null;
       if(selectedCard!=null&&mousePressed){
         fill(0);
+        stroke(0);
         line((width/2)+((hand.indexOf(selectedCard)-hand.size()/2)*120),500,mouseX,mouseY);
+        noStroke();
       }
     }
   }

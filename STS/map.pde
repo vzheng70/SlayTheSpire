@@ -7,7 +7,7 @@ public class Map{
     nodes = new Node[16];
     for(int i=0;i<nodes.length;i++){
       if(i==0){
-        nodes[i]=new Node(width/2+((int)(Math.random()*20-10)),i*-100+500,1);
+        nodes[i]=new Node(width/2+((int)(Math.random()*20-10)),i*-100+500,3);
       }else{
         double rand=Math.random();
         if(rand<.4)
@@ -34,7 +34,9 @@ public class Map{
         n.drawNode((int)n.location.x,(int)n.location.y-scroll);
         if(i>0){
           fill(20);
+          stroke(0);
           line(n.location.x,n.location.y-scroll,nodes[i-1].location.x,nodes[i-1].location.y-scroll);
+          noStroke();
         }
       }
     }

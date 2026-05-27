@@ -2,7 +2,7 @@ public abstract class Enemy{
   private int HP,maxHP,block,weak,vulnerable,strength,x,y,enemyWidth,enemyHeight;
   private String[] attackPattern;
   private int move;
-  private int poison=0;
+  private int poison;
   private boolean dead;
   PImage pic;
   public Enemy(int HP, String[] attackPattern,String fileName,int x,int y,int w,int h){
@@ -20,12 +20,15 @@ public abstract class Enemy{
     enemyWidth=w;
     enemyHeight=h;
     pic=loadImage(fileName);
+    poison=0;
   }
   public abstract void playTurn();
   public abstract void drawEnemy();
-  public void startOfTurn(){
-    takeDamage(poison);
-    poison--;
+  public void startOfTurn(){    
+    if(poison>0){
+      takeDamage(poison);
+      poison--;
+    }
     block=0;
   }
   public void endOfTurn(){
@@ -103,6 +106,7 @@ public abstract class Enemy{
     }
     if(thisEncounter.selectedEnemy==this){
       fill(0);
+      stroke(0);
       line(x,y,x+20,y);
       line(x,y,x,y+20);
       line(x+enemyWidth,y,x+enemyWidth-20,y);
@@ -111,6 +115,7 @@ public abstract class Enemy{
       line(x+enemyWidth,y+enemyHeight,x+enemyWidth-20,y+enemyHeight);
       line(x,y+enemyHeight,x,y+enemyHeight-20);
       line(x,y+enemyHeight,x+20,y+enemyHeight);
+      noStroke();
     }
   }
   public void drawAttackIntent(int dmg){

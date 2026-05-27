@@ -1,6 +1,6 @@
 public class PoisonStab extends Card{
   public PoisonStab(){
-    super(1,1,false,"../images/Poisoned_Stab.png");
+    super(1,1,false,"Poisoned_Stab");
   }
   public void play(Enemy target){
     if(thisEncounter.energy>=super.energyCost){
@@ -9,7 +9,9 @@ public class PoisonStab extends Card{
       dmg=theSilent.calcAttackDamage(dmg,target);
       //print(dmg);
       target.takeDamage(dmg);
-      target.gainPoison(3);
+      int p=3;
+      if(super.upgrade)p=4;
+      target.gainPoison(p);
       thisEncounter.energy-=super.energyCost;
       this.discard();
     }

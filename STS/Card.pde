@@ -4,14 +4,15 @@ public abstract class Card{
   private boolean upgrade;
  // private String text;
   private PImage pic;
+  private String imgFile;
   public abstract void play(Enemy target);
   public abstract void play();
-  
   public Card(int cost,int type, boolean upgraded,String fileName){
     energyCost=cost;
     cardType=type;
     upgrade=upgraded;
-    pic = loadImage(fileName);
+    imgFile=fileName;
+    pic = loadImage("../images/"+imgFile+".png");
   }
   public void discard(){
     thisEncounter.hand.remove(this);
@@ -23,8 +24,15 @@ public abstract class Card{
     thisEncounter.selectedCard=null;
   }
   public void drawCard(int x,int y,int size){
-    if(thisEncounter.selectedCard==this)
-      y-=10;
+    if(thisEncounter!=null){
+      if(thisEncounter.selectedCard==this)
+        y-=10;
+    }
     image(pic,x,y,size,size*5/4);
+  }
+  public void upgrade(){
+    upgrade=true;
+    imgFile+="+";
+    pic = loadImage("../images/"+imgFile+".png");
   }
 }

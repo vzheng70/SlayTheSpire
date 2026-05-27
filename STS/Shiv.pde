@@ -1,6 +1,6 @@
 public class Shiv extends Card{
   public Shiv(){
-    super(0,1,false,"../images/Shiv.png");
+    super(0,1,false,"Shiv");
   }
   public void play(Enemy target){
     if(thisEncounter.energy>=super.energyCost){
