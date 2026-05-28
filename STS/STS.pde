@@ -1,4 +1,4 @@
- import java.util.*;
+import java.util.*;
 ArrayList<Card> deck=new ArrayList<Card>();
 Encounter thisEncounter;
 Player theSilent=new Player(70);
@@ -21,9 +21,6 @@ void setup(){
   }
   deck.add(new Neutralize());
   deck.add(new Survivor());
-  deck.add(new BackFlip());
-  deck.add(new BladeDance());
-  deck.add(new PoisonStab());
   currentMap=new Map();
   
   textAlign(CENTER);
@@ -85,7 +82,10 @@ public void mousePressed(){
   }else if(currentMap.mapOpened){
     Node next=currentMap.nodes[floorNum];
     if(checkMouse((int)next.location.x,(int)next.location.x+20,(int)next.location.y-currentMap.scroll,(int)next.location.y-currentMap.scroll+20)){
+      cardRewards=null;
+      currentMap.mapOpened=false;
       currentRest=null;
+      thisEncounter=null;
       if(next.type==1){
         if(fightNum<3)
           startEasyEncounter();
@@ -94,8 +94,7 @@ public void mousePressed(){
         currentRest=new Rest();
       }
       floorNum++;
-      cardRewards=null;
-      currentMap.mapOpened=false;
+
     }
     if(checkMouse(width-170,width-130,5,45)){
        currentMap.mapOpened=false;
@@ -199,7 +198,9 @@ public void drawToolBar(){
   fill(30);
   circle(width-150,25,40);
   fill(242,224,159);
-  text(floorNum,width/2,40);
+  text(floorNum,width/2,35);
+  fill(232,12,12);
+  text(theSilent.HP+"/"+theSilent.maxHP,120,35);
 }
 public boolean checkMouse(int minX,int maxX,int minY,int maxY){
   return mouseX>minX&&mouseX<maxX&&mouseY>minY&&mouseY<maxY;

@@ -20,6 +20,9 @@ public class CardRewardScreen{
       }
       fill(40,115,137);
       rect(width/2-100,height/2+175,200,50);
+      fill(255);
+      textSize(50);
+      text("Skip",width/2,height/2+215);
     }else {
       fill(100);
       rect(width/2-150,height/2-150,300,300);

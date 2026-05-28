@@ -76,7 +76,7 @@ public abstract class Enemy{
     rect(x+enemyWidth/2-10, y-30,20,20);
     triangle(x+enemyWidth/2-15,y-30,x+enemyWidth/2,y-40,x+enemyWidth/2+15,y-30);
   }
-  public void drawStatuses(){
+  public int drawStatuses(){
     if(block>0){
       fill(111,255,242);
       circle(x-10,y+enemyHeight+8,20);
@@ -91,18 +91,21 @@ public abstract class Enemy{
     textSize(10);
     
     if(strength>0){
-      text(strength,x+offset,y+enemyHeight+20);
-      offset+=10;
+      text(strength,x+offset+20,y+enemyHeight+20);
+      offset+=20;
     }
     if(vulnerable>0){
-      text(vulnerable,x+offset,y+enemyHeight+20);
-      offset+=10;
+      image(loadImage("../images/Vulnerable.png"),x+offset,y+enemyHeight,20,20);
+      text(vulnerable,x+offset+20,y+enemyHeight+20);
+      offset+=20;
     }if(weak>0){
-      text(weak,x+offset,y+enemyHeight+20);
-      offset+=10;
+      image(loadImage("../images/Weak.png"),x+offset,y+enemyHeight,20,20);
+      text(weak,x+offset+20,y+enemyHeight+20);
+      offset+=20;
     }if(poison>0){
-      text(poison  ,x+offset,y+enemyHeight+20);
-      offset+=10;
+      image(loadImage("../images/Poison.png"),x+offset,y+enemyHeight,20,20);
+      text(poison  ,x+offset+20,y+enemyHeight+20);
+      offset+=20;
     }
     if(thisEncounter.selectedEnemy==this){
       fill(0);
@@ -117,6 +120,7 @@ public abstract class Enemy{
       line(x,y+enemyHeight,x+20,y+enemyHeight);
       noStroke();
     }
+    return offset;
   }
   public void drawAttackIntent(int dmg){
     fill(229,137,154);
