@@ -6,6 +6,7 @@ public class Encounter{
   private CardSelectionScreen cardSelect=null;
   private Enemy[] enemies;
   private boolean finished=false;
+  private boolean cardDiscarded=false;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
     enemies=enemyLst;
@@ -20,11 +21,16 @@ public class Encounter{
     while(tempDeck.size()>0){
       drawPile.add(tempDeck.remove((int)(Math.random()*tempDeck.size())));
     }
+    for(int i=0;i<drawPile.size();i++){
+      if(drawPile.get(i).innate)
+        drawPile.add(drawPile.remove(i));
+    }
     startTurn();
   }
   public void startTurn(){
     turnNum++;
     energy=3;
+    cardDiscarded=false;
     theSilent.startPlayerTurn();
     int cardAdd=0;
     if(turnNum==1)

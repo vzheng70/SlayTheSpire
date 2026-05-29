@@ -1,17 +1,18 @@
-public class Shiv extends Card{
-  public Shiv(){
-    super(0,1,false,"Shiv");
+public class SuckerPunch extends Card{
+  public SuckerPunch(){
+    super(1,1,false,"Sucker_Punch");
   }
   public void play(Enemy target){
     if(thisEncounter.energy>=super.energyCost){
-      int dmg=4;
-      if(super.upgrade)dmg=6;
-      dmg+=theSilent.accuracy;
+      int dmg=7;
+      if(super.upgrade)dmg=9;
       dmg=theSilent.calcAttackDamage(dmg,target);
-      //print(dmg);
       target.takeDamage(dmg);
+      int w=1;
+      if(super.upgrade)w=2;
+      target.recieveDebuff(0,w);
       thisEncounter.energy-=super.energyCost;
-      this.exhaust();
+      this.discard();
     }
   }
   public void play(){

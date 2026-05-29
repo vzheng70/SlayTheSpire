@@ -2,6 +2,7 @@ public abstract class Card{
   //cardType 0 =attack, 1=skill, 2=power
   private int energyCost,cardType;
   private boolean upgrade;
+  private boolean innate=false;
  // private String text;
   private PImage pic;
   private String imgFile;

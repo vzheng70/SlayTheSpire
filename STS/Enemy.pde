@@ -24,12 +24,12 @@ public abstract class Enemy{
   }
   public abstract void playTurn();
   public abstract void drawEnemy();
-  public void startOfTurn(){    
+  public void startOfTurn(){   
+    block=0;
     if(poison>0){
       takeDamage(poison);
       poison--;
-    }
-    block=0;
+    }    
   }
   public void endOfTurn(){
     if(weak>0)
@@ -91,20 +91,20 @@ public abstract class Enemy{
     textSize(10);
     
     if(strength>0){
-      text(strength,x+offset+20,y+enemyHeight+20);
+      text(strength,x+offset+20,y+enemyHeight+40);
       offset+=20;
     }
     if(vulnerable>0){
-      image(loadImage("../images/Vulnerable.png"),x+offset,y+enemyHeight,20,20);
-      text(vulnerable,x+offset+20,y+enemyHeight+20);
+      image(loadImage("../images/Vulnerable.png"),x+offset,y+enemyHeight+20,20,20);
+      text(vulnerable,x+offset+20,y+enemyHeight+40);
       offset+=20;
     }if(weak>0){
-      image(loadImage("../images/Weak.png"),x+offset,y+enemyHeight,20,20);
-      text(weak,x+offset+20,y+enemyHeight+20);
+      image(loadImage("../images/Weak.png"),x+offset,y+enemyHeight+20,20,20);
+      text(weak,x+offset+20,y+enemyHeight+40);
       offset+=20;
     }if(poison>0){
-      image(loadImage("../images/Poison.png"),x+offset,y+enemyHeight,20,20);
-      text(poison  ,x+offset+20,y+enemyHeight+20);
+      image(loadImage("../images/Poison.png"),x+offset,y+enemyHeight+20,20,20);
+      text(poison  ,x+offset+20,y+enemyHeight+40);
       offset+=20;
     }
     if(thisEncounter.selectedEnemy==this){

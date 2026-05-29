@@ -21,6 +21,9 @@ void setup(){
   }
   deck.add(new Neutralize());
   deck.add(new Survivor());
+  deck.add(new CalcGamba());
+  deck.add(new CrippleCloud());
+  deck.add(new LegSweep());
   currentMap=new Map();
   
   textAlign(CENTER);
@@ -147,12 +150,10 @@ public void mouseReleased(){
   if(thisEncounter!=null){
     Card card=thisEncounter.selectedCard;
     if(card!=null){
-      if(card.cardType>1&&mouseY<450){
-        //print("played");
-        card.play();
-      }else{
-        if(thisEncounter.selectedEnemy!=null)
+      if(thisEncounter.selectedEnemy!=null)
           card.play(thisEncounter.selectedEnemy);
+      else if(card.cardType>1&&mouseY<450){
+        card.play();
       }
     }
     thisEncounter.selectedCard=null;

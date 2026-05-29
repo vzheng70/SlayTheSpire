@@ -1,19 +1,18 @@
-public class BackFlip extends Card{
-  public BackFlip(){
-    super(1,2,false,"Backflip");
+public class Deflect extends Card{
+  public Deflect(){
+    super(0,2,false,"Deflect");
   }
   public void play(Enemy target){
     play();
   }
   public void play(){
     if(thisEncounter.energy>=super.energyCost){
-      int blk=5;
-      if(super.upgrade)blk=8;
+      int blk=4;
+      if(super.upgrade)blk=7;
       theSilent.gainBlock(theSilent.calcBlock(blk));
-      for(int i=0;i<2;i++)
-        thisEncounter.drawCard();
       thisEncounter.energy-=super.energyCost;
       discard();
     }
   }
+
 }

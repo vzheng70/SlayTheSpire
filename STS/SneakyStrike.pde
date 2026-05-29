@@ -1,17 +1,17 @@
-public class Shiv extends Card{
-  public Shiv(){
-    super(0,1,false,"Shiv");
+public class SneakyStrike extends Card{
+  public SneakyStrike(){
+    super(2,1,false,"Sneaky_Strike");
   }
   public void play(Enemy target){
     if(thisEncounter.energy>=super.energyCost){
-      int dmg=4;
-      if(super.upgrade)dmg=6;
-      dmg+=theSilent.accuracy;
+      int dmg=12;
+      if(super.upgrade)dmg=16;
       dmg=theSilent.calcAttackDamage(dmg,target);
-      //print(dmg);
       target.takeDamage(dmg);
       thisEncounter.energy-=super.energyCost;
-      this.exhaust();
+      if(thisEncounter.cardDiscarded)
+        thisEncounter.energy+=2;
+      this.discard();
     }
   }
   public void play(){

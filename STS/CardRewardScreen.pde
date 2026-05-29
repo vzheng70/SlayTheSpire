@@ -1,5 +1,6 @@
 public class CardRewardScreen{
-  private ArrayList<Card> cardPool=new ArrayList<Card>(Arrays.asList(new BladeDance(),new BackFlip(),new PoisonStab()));
+  private ArrayList<Card> cardPool=new ArrayList<Card>(Arrays.asList(new BladeDance(),new BackFlip(),new PoisonStab(),new Acrobatics(),new DeadlyPoison(),new DaggerThrow(),
+  new SuckerPunch(),new InfiniteBlades(),new Accuracy(),new Footwork(),new NoxiousFumes(),new SneakyStrike(),new Deflect(),new LegSweep(),new CalcGamba(),new CrippleCloud()));
   private Card[] cardReward=new Card[3];
   private boolean seeReward=false;
   public CardRewardScreen(){

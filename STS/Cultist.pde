@@ -34,8 +34,8 @@ public class Cultist extends Enemy{
   public int drawStatuses(){
     int offset=super.drawStatuses();
     if(ritual>0){
-      image(loadImage("../images/Ritual.png"),super.x+offset,super.y+super.enemyHeight,20,20);
-      text(ritual,super.x+offset+20,super.y+super.enemyHeight+20);
+      image(loadImage("../images/Ritual.png"),super.x+offset,super.y+super.enemyHeight+20 ,20,20);
+      text(ritual,super.x+offset+20,super.y+super.enemyHeight+40);
       offset+=10;
     }
     return offset;
