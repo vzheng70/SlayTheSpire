@@ -4,7 +4,7 @@ public class Strike extends Card{
   }
   public void play(Enemy target){
     if(thisEncounter.energy>=super.energyCost){
-      int dmg=6;
+      int dmg=100;
       if(super.upgrade)dmg=9;
       dmg=theSilent.calcAttackDamage(dmg,target);
       //print(dmg);

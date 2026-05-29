@@ -20,6 +20,11 @@ public class WurmCrawler extends Enemy{
   }
   public void drawEnemy(){
     image(pic,super.x,super.y,super.enemyWidth,super.enemyHeight);
+    if(thisEncounter.selectedEnemy==this){
+      fill(255);
+      textSize(25);
+      text("Wriggling Wurm Crawler",super.x+super.enemyWidth/2,super.y-10);
+    }
     String currentMove=super.attackPattern[super.move];
     //rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
     drawStatuses();

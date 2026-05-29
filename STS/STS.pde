@@ -21,9 +21,9 @@ void setup(){
   }
   deck.add(new Neutralize());
   deck.add(new Survivor());
-  deck.add(new CalcGamba());
-  deck.add(new CrippleCloud());
-  deck.add(new LegSweep());
+  //deck.add(new CalcGamba());
+  //deck.add(new CrippleCloud());
+  //deck.add(new LegSweep());
   currentMap=new Map();
   
   textAlign(CENTER);

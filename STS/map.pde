@@ -32,10 +32,15 @@ public class Map{
       for(int i=0;i<nodes.length;i++){
         Node n=nodes[i];
         n.drawNode((int)n.location.x,(int)n.location.y-scroll);
+        if(i<floorNum){
+          fill(255,0,0);
+          quad(n.location.x+2, n.location.y-scroll,n.location.x+20,n.location.y-scroll+18,n.location.x+18,n.location.y-scroll+20,n.location.x,n.location.y-scroll+2);
+          quad(n.location.x+2, n.location.y-scroll+20,n.location.x,n.location.y-scroll+18,n.location.x+18,n.location.y-scroll,n.location.x+20,n.location.y-scroll+2);
+        }          
         if(i>0){
           fill(20);
           stroke(0);
-          line(n.location.x,n.location.y-scroll,nodes[i-1].location.x,nodes[i-1].location.y-scroll);
+          line(n.location.x+10,n.location.y-scroll+20,nodes[i-1].location.x+10,nodes[i-1].location.y-scroll);
           noStroke();
         }
       }

@@ -22,6 +22,11 @@ public class Cultist extends Enemy{
   }
   public void drawEnemy(){
     image(pic,super.x,super.y,super.enemyWidth,super.enemyHeight);
+    if(thisEncounter.selectedEnemy==this){
+      fill(255);
+      textSize(25);
+      text("Cultist",super.x+super.enemyWidth/2,super.y-10);
+    }
     //rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
     drawStatuses();
     if(super.attackPattern[super.move].equals("Ritual")){

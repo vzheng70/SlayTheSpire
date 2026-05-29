@@ -25,11 +25,17 @@ public class CardRewardScreen{
       textSize(50);
       text("Skip",width/2,height/2+215);
     }else {
+      fill(255);
+      textSize(50);
+      text("Rewards",width/2,height/2-175);
       fill(100);
       rect(width/2-150,height/2-150,300,300);
       if(cardReward!=null){
         fill(150);
         rect(width/2-120,height/2-120,240,50);
+        fill(255);
+        textSize(20);
+        text("Add a card to your deck",width/2-120,height/2-103,240,50);
       }
       drawProceedArrow();
     }
