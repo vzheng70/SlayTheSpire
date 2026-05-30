@@ -7,6 +7,7 @@ public class Encounter{
   private Enemy[] enemies;
   private boolean finished=false;
   private boolean cardDiscarded=false;
+  private boolean elite;
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
     enemies=enemyLst;
@@ -14,6 +15,7 @@ public class Encounter{
     drawPile=new ArrayList<Card>();
     hand=new ArrayList<Card>();
     discardPile=new ArrayList<Card>();
+    elite=false;
     ArrayList<Card> tempDeck=new ArrayList<Card>();
     for(Card card:deck){
       tempDeck.add(card);
@@ -26,6 +28,10 @@ public class Encounter{
         drawPile.add(drawPile.remove(i));
     }
     startTurn();
+  }
+  public Encounter(Enemy[] enemyLst,boolean elite){
+    this(enemyLst);
+    this.elite=elite;
   }
   public void startTurn(){
     turnNum++;
@@ -58,8 +64,12 @@ public class Encounter{
   }
   public void endTurn(){
     //println("turn end");
-    while(hand.size()>0)
-      hand.get(0).discard();
+    while(hand.size()>0){
+      if(hand.get(0).ethereal)
+        hand.get(0).exhaust();
+      else
+        hand.get(0).discard();
+    }
     for(Enemy e:enemies){
       if(!e.dead)
         e.playTurn();

@@ -31,7 +31,7 @@ public class WurmCrawler extends Enemy{
     if(currentMove.equals("Goop")){
       drawAttackIntent(calcAttackDamage(6));
     }else if(currentMove.equals("Inhale")){
-      drawBuffArrow();
+      drawBuffArrow(0);
     }
   }
 }

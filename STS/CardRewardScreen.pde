@@ -1,12 +1,20 @@
 public class CardRewardScreen{
   private ArrayList<Card> cardPool=new ArrayList<Card>(Arrays.asList(new BladeDance(),new BackFlip(),new PoisonStab(),new Acrobatics(),new DeadlyPoison(),new DaggerThrow(),
   new SuckerPunch(),new InfiniteBlades(),new Accuracy(),new Footwork(),new NoxiousFumes(),new SneakyStrike(),new Deflect(),new LegSweep(),new CalcGamba(),new CrippleCloud()));
+  private ArrayList<Card> rareCardPool=new ArrayList<Card>(Arrays.asList(new Adrenaline(),new FanOfKnives(),new Tracking(),new Shadowmeld(),new DieDieDie(),new StormOfSteel()));
   private Card[] cardReward=new Card[3];
   private boolean seeReward=false;
+  private boolean elite=false;
   public CardRewardScreen(){
     for(int i=0;i<cardReward.length;i++){
       cardReward[i]=cardPool.remove((int)(Math.random()*cardPool.size()));
     }
+  }
+  public CardRewardScreen(boolean elite){
+    for(int i=0;i<cardReward.length;i++){
+      cardReward[i]=rareCardPool.remove((int)(Math.random()*rareCardPool.size()));
+    }
+    this.elite =elite;
   }
   public void drawCardReward(){
     //print(seeReward);
@@ -28,11 +36,17 @@ public class CardRewardScreen{
       fill(255);
       textSize(50);
       text("Rewards",width/2,height/2-175);
+      if(elite)
+         stroke(245,227,30);
       fill(100);
-      rect(width/2-150,height/2-150,300,300);
+      rect(width/2-150,height/2-150,300,300);    
+      noStroke();
       if(cardReward!=null){
+        if(elite)
+          stroke(245,227,30);
         fill(150);
         rect(width/2-120,height/2-120,240,50);
+        noStroke();
         fill(255);
         textSize(20);
         text("Add a card to your deck",width/2-120,height/2-103,240,50);

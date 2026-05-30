@@ -7,8 +7,10 @@ CardRewardScreen cardRewards=null;
 Rest currentRest=null;
 Map currentMap;
 int floorNum=0;
-int fightNum=0;
-ArrayList<String> easyPool=new ArrayList<>(Arrays.asList("Cultist","Jaw Worm","Fuzzy Wurm Crawler"));
+int fightNum=4;
+ArrayList<String> easyPool=new ArrayList<>(Arrays.asList("Cultist","Jaw Worm","Fuzzy Wurm Crawler","Slimes"));
+ArrayList<String> hardPool=new ArrayList<>(Arrays.asList("Slaver","Rats","Big Slime","Cultist&Slime","Small Slimes"));
+ArrayList<String> elitePool=new ArrayList<>(Arrays.asList("Lagavulin","Sentries","Skulking Colony"));
 void setup(){
   background(50);
   size(1080,640);
@@ -21,9 +23,8 @@ void setup(){
   }
   deck.add(new Neutralize());
   deck.add(new Survivor());
-  //deck.add(new CalcGamba());
-  //deck.add(new CrippleCloud());
   //deck.add(new LegSweep());
+  //deck.add(new Tracking());
   currentMap=new Map();
   
   textAlign(CENTER);
@@ -34,8 +35,11 @@ void draw(){
   if(thisEncounter!=null){
     thisEncounter.drawEncounter();
     if(thisEncounter.finished){
-      thisEncounter=null;
-      cardRewards=new CardRewardScreen();
+      if(thisEncounter.elite)
+        cardRewards=new CardRewardScreen(true);
+      else
+        cardRewards=new CardRewardScreen();
+      thisEncounter=null;      
     }
   }
   if(currentRest!=null)
@@ -92,9 +96,13 @@ public void mousePressed(){
       if(next.type==1){
         if(fightNum<3)
           startEasyEncounter();
+        else
+          startHardEncounter();
         fightNum++;        
       }else if(next.type==3){
         currentRest=new Rest();
+      }else if(next.type==4){
+        startEliteEncounter();
       }
       floorNum++;
 
@@ -138,13 +146,43 @@ public void mousePressed(){
 }
 public void startEasyEncounter(){
   String selector=easyPool.remove((int)(Math.random()*easyPool.size()));
+  //selector="Slimes";
   if(selector.equals("Cultist"))
     thisEncounter=new Encounter(new Enemy[]{new Cultist(720,200)});
   else if(selector.equals("Jaw Worm"))
     thisEncounter=new Encounter(new Enemy[]{new JawWorm(720,300)});
   else if(selector.equals("Fuzzy Wurm Crawler"))
     thisEncounter=new Encounter(new Enemy[]{new WurmCrawler(720,250)});
+  else if(selector.equals("Slimes"))
+    thisEncounter=new Encounter(new Enemy[]{new AcidSlimeS(620,300),new SpikeSlimeM(770,250)});
     
+}
+public void startHardEncounter(){
+  String selector=hardPool.remove((int)(Math.random()*hardPool.size()));
+  selector="Big Slime";
+  if(selector.equals("Slaver"))
+    thisEncounter=new Encounter(new Enemy[]{new Slaver(720,200)});
+  else if(selector.equals("Rats"))
+    thisEncounter=new Encounter(new Enemy[]{new FungalBeast(570,250),new FungalBeast(820,250)});
+  else if(selector.equals("Big Slime"))
+    thisEncounter=new Encounter(new Enemy[]{new DeadEnemy(),new SpikeSlimeL(620,200),new DeadEnemy()});
+  else if(selector.equals("Small Slimes"))
+    thisEncounter=new Encounter(new Enemy[]{new SpikeSlimeS(520,300),new SpikeSlimeS(620,290),new AcidSlimeS(720,310),new SpikeSlimeS(820,305),new AcidSlimeS(920,300),});
+  else if(selector.equals("Cultist&Slime"))
+    thisEncounter=new Encounter(new Enemy[]{new AcidSlimeS(620,300),new Cultist(770,200)});
+}
+public void startEliteEncounter(){
+  String selector=elitePool.get((int)(Math.random()*elitePool.size()));
+ // selector="Sentries";
+  if(selector.equals("Lagavulin"))
+    thisEncounter=new Encounter(new Enemy[]{new Lagavulin(720,120)},true);
+  else if(selector.equals("Sentries")){
+    Enemy sentry2=(new Sentry(670,200));
+    sentry2.move=1;
+    thisEncounter=new Encounter(new Enemy[]{new Sentry(520,200),sentry2,new Sentry(820,200)},true);
+  }else if(selector.equals("Skulking Colony"))
+    thisEncounter=new Encounter(new Enemy[]{new SkulkingColony(720,120)},true);
+  
 }
 public void mouseReleased(){
   if(thisEncounter!=null){
@@ -152,7 +190,7 @@ public void mouseReleased(){
     if(card!=null){
       if(thisEncounter.selectedEnemy!=null)
           card.play(thisEncounter.selectedEnemy);
-      else if(card.cardType>1&&mouseY<450){
+      else if(mouseY<450){
         card.play();
       }
     }
@@ -198,6 +236,7 @@ public void drawToolBar(){
   text(deck.size(),width-60,35);
   fill(30);
   circle(width-150,25,40);
+  image(loadImage("../images/Map.png"),width-165,10,30,30);
   fill(242,224,159);
   text(floorNum,width/2,35);
   fill(232,12,12);
@@ -213,6 +252,5 @@ public void delay(int millis){
   }
   catch (InterruptedException e) {
   }
-}      
-    
+}          
   

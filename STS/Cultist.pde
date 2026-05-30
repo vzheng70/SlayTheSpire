@@ -30,7 +30,7 @@ public class Cultist extends Enemy{
     //rect(super.x,super.y,super.enemyWidth,super.enemyHeight);
     drawStatuses();
     if(super.attackPattern[super.move].equals("Ritual")){
-      drawBuffArrow();
+      drawBuffArrow(0);
     }else{
       drawAttackIntent(calcAttackDamage(6));
     }
