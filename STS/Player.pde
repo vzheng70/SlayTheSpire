@@ -20,6 +20,7 @@ public class Player{
       block-=dmg;
     if(block<0){
       HP+=block;
+      thisEncounter.allSplashTxt.add(new SplashText(""+block*-1,280,300));
       block=0;
     }
     if (HP<0)HP=0;

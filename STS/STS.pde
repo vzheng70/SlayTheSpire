@@ -22,14 +22,13 @@ void setup(){
     deck.add(new Defend());
   }
   deck.add(new Neutralize());
-  deck.add(new Survivor());deck.add(new Assassinate());deck.add(new Assassinate());
+  deck.add(new Survivor());
   currentMap=new Map();
   
   textAlign(CENTER);
 }
 void draw(){
   background(50);
-  
   if(thisEncounter!=null){
     thisEncounter.drawEncounter();
     if(thisEncounter.finished){
@@ -261,8 +260,10 @@ public void drawToolBar(){
   image(loadImage("../images/Map.png"),width-165,10,30,30);
   fill(242,224,159);
   text(floorNum,width/2,35);
+  image(loadImage("../images/Floor.png"),width/2-50,10,35,30);
   fill(232,12,12);
   text(theSilent.HP+"/"+theSilent.maxHP,120,35);
+  image(loadImage("../images/Health.png"),40,10,30,30);
 }
 public boolean checkMouse(int minX,int maxX,int minY,int maxY){
   return mouseX>minX&&mouseX<maxX&&mouseY>minY&&mouseY<maxY;

@@ -1,6 +1,6 @@
 public class Assassinate extends Card{
   public Assassinate(){
-    super(1,1,false,"Assassinate");
+    super(0,1,false,"Assassinate");
     super.innate=true;
   }
   public void play(Enemy target){

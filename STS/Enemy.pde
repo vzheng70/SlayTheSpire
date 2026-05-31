@@ -48,6 +48,7 @@ public abstract class Enemy{
     if(block<0){
       HP+=block;
       temp=block;
+      thisEncounter.allSplashTxt.add(new SplashText(""+block*-1,x+enemyWidth/2,y+enemyHeight/2));
       block=0;
     }
     if (HP<=0){HP=0;die();}

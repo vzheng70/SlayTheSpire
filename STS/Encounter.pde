@@ -8,6 +8,7 @@ public class Encounter{
   private boolean finished=false;
   private boolean cardDiscarded=false;
   private boolean elite;
+  private ArrayList<SplashText> allSplashTxt=new ArrayList<SplashText>();
   public Encounter(Enemy[] enemyLst){
     theSilent.reset();
     enemies=enemyLst;
@@ -17,15 +18,18 @@ public class Encounter{
     discardPile=new ArrayList<Card>();
     elite=false;
     ArrayList<Card> tempDeck=new ArrayList<Card>();
+    ArrayList<Card> innateCards=new ArrayList<Card>();
     for(Card card:deck){
-      tempDeck.add(card);
+      if(card.innate)
+        innateCards.add(card);
+      else 
+        tempDeck.add(card);
     }
     while(tempDeck.size()>0){
       drawPile.add(tempDeck.remove((int)(Math.random()*tempDeck.size())));
     }
-    for(int i=0;i<drawPile.size();i++){
-      if(drawPile.get(i).innate)
-        drawPile.add(drawPile.remove(i));
+    while(innateCards.size()>0){
+      drawPile.add(innateCards.remove((int)(Math.random()*innateCards.size())));
     }
     startTurn();
   }
@@ -84,8 +88,18 @@ public class Encounter{
     drawCardSelection();
     drawHand();
     drawUI();
+    drawSplashText();
   }
-  
+  public void drawSplashText(){
+    for(int i=0;i<allSplashTxt.size();i++){
+      SplashText t=allSplashTxt.get(i);
+      t.drawText();
+      if(t.lifeTime<=1){
+        allSplashTxt.remove(i);
+        i--;
+      }
+    }
+  }
   public void showEnemies(){
       boolean selected=false;
       boolean allDead=true;
@@ -135,7 +149,7 @@ public class Encounter{
     }
   }
   public void drawCardSelection(){
-    if(cardSelect!=null){
+    if(cardSelect!=null&&hand.size()>0){
       fill(20,50);
       rect(0,0,width,height);
       fill(255);
@@ -146,6 +160,8 @@ public class Encounter{
         cardSelect.discardSelectedCard();
         cardSelect=null;
       }
+    }else{
+      cardSelect=null;
     }
   }
   public void drawUI(){
