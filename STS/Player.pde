@@ -71,6 +71,12 @@ public class Player{
        dmg=(int)(dmg*.75);
      return dmg;
   }
+  public void dealAttackDamage(int dmg,Enemy target){
+    dmg=calcAttackDamage(dmg,target);
+    target.takeDamage(dmg);
+    if(target.thorns>0)
+      takeDamage(target.thorns);
+  }
   public void drawPlayer(int x,int y){
     image(pic,x-40,y,200,220);
     fill(255);
@@ -96,16 +102,25 @@ public class Player{
       text(dexterity,x+offset+20,y+240);
       offset+=20;
     }if(infiniteBlades>0){
-      //image(loadImage("../images/Infinite_Blade_Icon.png"),x+offset,y+220,20,20);
+      image(loadImage("../images/Infinite_Blade_Icon.png"),x+offset,y+220,20,20);
       text(infiniteBlades,x+offset+20,y+240);
       offset+=20;
     }if(accuracy>0){
-      //image(loadImage("../images/Accuracy_Icon.png"),x+offset,y+220,20,20);
+      image(loadImage("../images/Accuracy_Icon.png"),x+offset,y+220,20,20);
       text(accuracy,x+offset+20,y+240);
       offset+=20;
     }if(noxiousFumes>0){
-      //image(loadImage("../images/Noxious_Fumes_Icon.png"),x+offset,y+220,20,20);
+      image(loadImage("../images/Noxious_Fumes_Icon.png"),x+offset,y+220,20,20);
       text(noxiousFumes,x+offset+20,y+240);
+      offset+=20;
+    }if(fanOfKnives){
+      image(loadImage("../images/Fan_Of_Knives_Icon.png"),x+offset,y+220,20,20);
+      offset+=20;
+    }if(doubleBlock){
+      image(loadImage("../images/Double_Block.png"),x+offset,y+220,20,20);
+      offset+=20;
+    }if(tracking){
+      image(loadImage("../images/Tracking_Icon.png"),x+offset,y+220,20,20);
       offset+=20;
     }
     if(vulnerable>0){

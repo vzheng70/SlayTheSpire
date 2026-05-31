@@ -36,7 +36,7 @@ public class JawWorm extends Enemy{
     if(currentMove.equals("Chomp")){
       drawAttackIntent(calcAttackDamage(12));
     }else if(currentMove.equals("Thrash")){
-      drawBlockIntent(20);
+      drawBlockIntent(30);
       drawAttackIntent(calcAttackDamage(6));
     }else{
       drawBuffArrow(0);

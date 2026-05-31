@@ -6,8 +6,7 @@ public class DaggerThrow extends Card{
     if(thisEncounter.energy>=super.energyCost){
       int dmg=9;
       if(super.upgrade)dmg=12;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       thisEncounter.drawCard();
       thisEncounter.energy-=super.energyCost;
       this.discard();

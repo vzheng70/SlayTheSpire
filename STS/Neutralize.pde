@@ -6,9 +6,7 @@ public class Neutralize extends Card{
     if(thisEncounter.energy>=super.energyCost){
       int dmg=3;
       if(super.upgrade)dmg=4;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      //print(dmg);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       int w=1;
       if(super.upgrade)w=2;
       target.recieveDebuff(0,w);

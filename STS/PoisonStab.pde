@@ -6,8 +6,7 @@ public class PoisonStab extends Card{
     if(thisEncounter.energy>=super.energyCost){
       int dmg=6;
       if(super.upgrade)dmg=8;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       int p=3;
       if(super.upgrade)p=4;
       target.gainPoison(p);

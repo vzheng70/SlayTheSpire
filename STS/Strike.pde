@@ -6,9 +6,7 @@ public class Strike extends Card{
     if(thisEncounter.energy>=super.energyCost){
       int dmg=6;
       if(super.upgrade)dmg=9;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      //print(dmg);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       thisEncounter.energy-=super.energyCost;
       this.discard();
     }

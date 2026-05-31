@@ -11,10 +11,9 @@ public class CalcGamba extends Card{
       thisEncounter.hand.remove(this);
       thisEncounter.hand.add(this);
       while(thisEncounter.hand.size()>1)
-        thisEncounter.hand.get(0).discard();
+        thisEncounter.hand.get(0).keyDiscard();
       for(int i=0;i<cardsDiscarded;i++)
         thisEncounter.drawCard();
-      thisEncounter.cardDiscarded=true;
       thisEncounter.energy-=super.energyCost;
       if(super.upgrade)
         discard();

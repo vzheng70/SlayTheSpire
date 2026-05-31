@@ -20,6 +20,10 @@ public abstract class Card{
     thisEncounter.discardPile.add(this);    
     thisEncounter.selectedCard=null;
   }
+  public void keyDiscard(){
+    discard();
+    thisEncounter.cardDiscarded=true;
+  }
   public void exhaust(){
     thisEncounter.hand.remove(this);
     thisEncounter.selectedCard=null;

@@ -6,7 +6,7 @@ public class CardSelectionScreen{
   }
   public void discardSelectedCard(){
     if(cardSelected!=null)
-      cardSelected.discard();
+      cardSelected.keyDiscard();
     thisEncounter.cardDiscarded=true;
   }
 }

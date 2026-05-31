@@ -1,7 +1,7 @@
 public class CardRewardScreen{
   private ArrayList<Card> cardPool=new ArrayList<Card>(Arrays.asList(new BladeDance(),new BackFlip(),new PoisonStab(),new Acrobatics(),new DeadlyPoison(),new DaggerThrow(),
-  new SuckerPunch(),new InfiniteBlades(),new Accuracy(),new Footwork(),new NoxiousFumes(),new SneakyStrike(),new Deflect(),new LegSweep(),new CalcGamba(),new CrippleCloud()));
-  private ArrayList<Card> rareCardPool=new ArrayList<Card>(Arrays.asList(new Adrenaline(),new FanOfKnives(),new Tracking(),new Shadowmeld(),new DieDieDie(),new StormOfSteel()));
+  new SuckerPunch(),new InfiniteBlades(),new Accuracy(),new Footwork(),new NoxiousFumes(),new SneakyStrike(),new Deflect(),new LegSweep(),new CalcGamba(),new CrippleCloud(),new DaggerSpray(),new CandD(),new Tactician()));
+  private ArrayList<Card> rareCardPool=new ArrayList<Card>(Arrays.asList(new Adrenaline(),new FanOfKnives(),new Tracking(),new Shadowmeld(),new DieDieDie(),new StormOfSteel(),new Assassinate()));
   private Card[] cardReward=new Card[3];
   private boolean seeReward=false;
   private boolean elite=false;

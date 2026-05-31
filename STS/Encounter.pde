@@ -139,7 +139,7 @@ public class Encounter{
       fill(20,50);
       rect(0,0,width,height);
       fill(255);
-      textSize(100);
+      textSize(75);
       text(cardSelect.txt,width/2,height/3);
       if(selectedCard!=null&&mousePressed){
         cardSelect.cardSelected=selectedCard;

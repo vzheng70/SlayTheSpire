@@ -6,8 +6,7 @@ public class SneakyStrike extends Card{
     if(thisEncounter.energy>=super.energyCost){
       int dmg=12;
       if(super.upgrade)dmg=16;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       thisEncounter.energy-=super.energyCost;
       if(thisEncounter.cardDiscarded)
         thisEncounter.energy+=2;

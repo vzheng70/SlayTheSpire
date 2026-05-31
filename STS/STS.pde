@@ -7,9 +7,9 @@ CardRewardScreen cardRewards=null;
 Rest currentRest=null;
 Map currentMap;
 int floorNum=0;
-int fightNum=4;
+int fightNum=0;
 ArrayList<String> easyPool=new ArrayList<>(Arrays.asList("Cultist","Jaw Worm","Fuzzy Wurm Crawler","Slimes"));
-ArrayList<String> hardPool=new ArrayList<>(Arrays.asList("Slaver","Rats","Big Slime","Cultist&Slime","Small Slimes"));
+ArrayList<String> hardPool=new ArrayList<>(Arrays.asList("Slaver","Rats","Big Slime","Cultist&Slime","Small Slimes","Jaw Worm&Rat"));
 ArrayList<String> elitePool=new ArrayList<>(Arrays.asList("Lagavulin","Sentries","Skulking Colony"));
 void setup(){
   background(50);
@@ -22,9 +22,7 @@ void setup(){
     deck.add(new Defend());
   }
   deck.add(new Neutralize());
-  deck.add(new Survivor());
-  //deck.add(new LegSweep());
-  //deck.add(new Tracking());
+  deck.add(new Survivor());deck.add(new Assassinate());deck.add(new Assassinate());
   currentMap=new Map();
   
   textAlign(CENTER);
@@ -35,11 +33,19 @@ void draw(){
   if(thisEncounter!=null){
     thisEncounter.drawEncounter();
     if(thisEncounter.finished){
-      if(thisEncounter.elite)
-        cardRewards=new CardRewardScreen(true);
-      else
-        cardRewards=new CardRewardScreen();
-      thisEncounter=null;      
+      if(floorNum==16){
+        fill(0,255,0);
+        textSize(75);
+        text("Victory!",width/2,height/3);
+        noLoop();
+      }else{
+        if(thisEncounter.elite)
+          cardRewards=new CardRewardScreen(true);
+        else
+          cardRewards=new CardRewardScreen();
+        thisEncounter=null;   
+      }
+   
     }
   }
   if(currentRest!=null)
@@ -88,24 +94,34 @@ public void mousePressed(){
     }
   }else if(currentMap.mapOpened){
     Node next=currentMap.nodes[floorNum];
-    if(checkMouse((int)next.location.x,(int)next.location.x+20,(int)next.location.y-currentMap.scroll,(int)next.location.y-currentMap.scroll+20)){
-      cardRewards=null;
-      currentMap.mapOpened=false;
-      currentRest=null;
-      thisEncounter=null;
-      if(next.type==1){
-        if(fightNum<3)
-          startEasyEncounter();
-        else
-          startHardEncounter();
-        fightNum++;        
-      }else if(next.type==3){
-        currentRest=new Rest();
-      }else if(next.type==4){
-        startEliteEncounter();
+    if(next.type!=2){
+      if(checkMouse((int)next.location.x,(int)next.location.x+20,(int)next.location.y-currentMap.scroll,(int)next.location.y-currentMap.scroll+20)){
+        cardRewards=null;
+        currentMap.mapOpened=false;
+        currentRest=null;
+        thisEncounter=null;
+        if(next.type==1){
+          if(fightNum<3)
+            startEasyEncounter();
+          else
+            startHardEncounter();
+          fightNum++;        
+        }else if(next.type==3){
+          currentRest=new Rest();
+        }else if(next.type==4){
+          startEliteEncounter();
+        }
+        floorNum++;
       }
-      floorNum++;
-
+    }else{
+      if(checkMouse((int)next.location.x-80,(int)next.location.x+120,(int)next.location.y-currentMap.scroll-180,(int)next.location.y-currentMap.scroll+20)){
+        cardRewards=null;
+        currentMap.mapOpened=false;
+        currentRest=null;
+        thisEncounter=null;
+        startBossEncounter();
+        floorNum++;
+      }
     }
     if(checkMouse(width-170,width-130,5,45)){
        currentMap.mapOpened=false;
@@ -158,8 +174,9 @@ public void startEasyEncounter(){
     
 }
 public void startHardEncounter(){
+  if(hardPool.size()==0) hardPool=new ArrayList<>(Arrays.asList("Slaver","Rats","Big Slime","Cultist&Slime","Small Slimes","Jaw Worm&Rat"));;
   String selector=hardPool.remove((int)(Math.random()*hardPool.size()));
-  selector="Big Slime";
+  //selector="Big Slime";
   if(selector.equals("Slaver"))
     thisEncounter=new Encounter(new Enemy[]{new Slaver(720,200)});
   else if(selector.equals("Rats"))
@@ -169,7 +186,9 @@ public void startHardEncounter(){
   else if(selector.equals("Small Slimes"))
     thisEncounter=new Encounter(new Enemy[]{new SpikeSlimeS(520,300),new SpikeSlimeS(620,290),new AcidSlimeS(720,310),new SpikeSlimeS(820,305),new AcidSlimeS(920,300),});
   else if(selector.equals("Cultist&Slime"))
-    thisEncounter=new Encounter(new Enemy[]{new AcidSlimeS(620,300),new Cultist(770,200)});
+    thisEncounter=new Encounter(new Enemy[]{new SpikeSlimeM(620,300),new Cultist(770,200)});
+  else if(selector.equals("Jaw Worm&Rat"))
+    thisEncounter=new Encounter(new Enemy[]{new FungalBeast(570,250),new JawWorm(770,300)});
 }
 public void startEliteEncounter(){
   String selector=elitePool.get((int)(Math.random()*elitePool.size()));
@@ -183,6 +202,9 @@ public void startEliteEncounter(){
   }else if(selector.equals("Skulking Colony"))
     thisEncounter=new Encounter(new Enemy[]{new SkulkingColony(720,120)},true);
   
+}
+public void startBossEncounter(){
+  thisEncounter=new Encounter(new Enemy[]{new theGuardian(620,120)});
 }
 public void mouseReleased(){
   if(thisEncounter!=null){

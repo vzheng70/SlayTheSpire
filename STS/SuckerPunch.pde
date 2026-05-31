@@ -6,8 +6,7 @@ public class SuckerPunch extends Card{
     if(thisEncounter.energy>=super.energyCost){
       int dmg=7;
       if(super.upgrade)dmg=9;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       int w=1;
       if(super.upgrade)w=2;
       target.recieveDebuff(0,w);

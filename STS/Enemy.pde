@@ -3,6 +3,7 @@ public abstract class Enemy{
   private String[] attackPattern;
   private int move;
   private int poison;
+  private int thorns=0;
   private boolean dead;
   PImage pic;
   public Enemy(int HP, String[] attackPattern,String fileName,int x,int y,int w,int h){
@@ -43,10 +44,7 @@ public abstract class Enemy{
   public int takeDamage(int dmg){
     //print(dmg);
     int temp=0;
-    if(vulnerable>=1)
-      block-=(int)(dmg*1.5);
-    else
-      block-=dmg;
+    block-=dmg;
     if(block<0){
       HP+=block;
       temp=block;
@@ -156,7 +154,7 @@ public abstract class Enemy{
     text(dmg+"x"+mult,x+enemyWidth/2,y-35);
     if(dmg*mult<=5)
       image(loadImage("../images/Smallest_Attack_Intent.png"),x+enemyWidth/2-60,y-60,40,40);
-    else if(dmg*mult<=19)
+    else if(dmg*mult<=9)
       image(loadImage("../images/Small_Attack_Intent.png"),x+enemyWidth/2-60,y-60,40,40);
     else if(dmg*mult<=14)
       image(loadImage("../images/Medium_Attack_Intent.png"),x+enemyWidth/2-60,y-60,40,40);

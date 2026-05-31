@@ -14,9 +14,7 @@ public class Shiv extends Card{
       int dmg=4;
       if(super.upgrade)dmg=6;
       dmg+=theSilent.accuracy;
-      dmg=theSilent.calcAttackDamage(dmg,target);
-      //print(dmg);
-      target.takeDamage(dmg);
+      theSilent.dealAttackDamage(dmg,target);
       thisEncounter.energy-=super.energyCost;
       this.exhaust();
     }
@@ -28,8 +26,7 @@ public class Shiv extends Card{
         if(super.upgrade)dmg=6;
         dmg+=theSilent.accuracy;
         for(Enemy e:thisEncounter.enemies){
-          int newDmg=theSilent.calcAttackDamage(dmg,e);
-          e.takeDamage(newDmg);
+          theSilent.dealAttackDamage(dmg,e);
         }
         thisEncounter.energy-=super.energyCost;
         this.exhaust();
